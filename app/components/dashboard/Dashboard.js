@@ -1,6 +1,6 @@
 const React = require('react');
 const ReactGridLayout = require('react-grid-layout');
-require('../stylesheets/dashboard.scss');
+require('./dashboard.scss');
 
 const Dashboard = React.createClass({
   render: function() {
