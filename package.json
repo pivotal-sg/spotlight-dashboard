@@ -4,7 +4,7 @@
   "description": "Frontend for spotlight",
   "main": "index.js",
   "scripts": {
-    "server": "webpack-dev-server --content-base public/"
+    "start": "webpack-dev-server --content-base public/"
   },
   "engines": {
     "node": "5.4.0"
