@@ -1,7 +1,8 @@
 module.exports = {
-  entry: "./app/App.js",
+  entry: './app/App.js',
   output: {
-    filename: "public/bundle.js"
+    path: __dirname + '/public',
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
@@ -12,7 +13,11 @@ module.exports = {
         query: {
           presets: ['react', 'es2015']
         }
-      }
+      },
+      {
+        test: /\.scss?$/,
+        loaders: ['style', 'css', 'sass']
+      },
     ]
   }
-}
+};

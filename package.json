@@ -4,7 +4,10 @@
   "description": "Frontend for spotlight",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "webpack-dev-server --content-base public/"
+  },
+  "engines": {
+    "node": "5.4.0"
   },
   "author": "Rahul <rahul@neo.com>",
   "license": "ISC",
@@ -12,12 +15,19 @@
     "history": "^1.13.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
+    "react-grid-layout": ">=0.10.0-beta1",
     "react-router": "^1.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.3.13",
     "babel-loader": "^6.2.0",
     "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13"
+    "babel-preset-react": "^6.3.13",
+    "css-loader": "^0.23.1",
+    "node-sass": "^3.4.2",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.12",
+    "webpack-dev-server": "^1.14.1"
   }
 }

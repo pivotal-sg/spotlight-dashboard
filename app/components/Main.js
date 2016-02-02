@@ -1,19 +1,12 @@
-var React = require('react');
+const React = require('react');
 
-var Main = React.createClass({
-  render: function(){
+const Main = React.createClass({
+  render: function() {
     return (
       <div className="main-container">
-        <nav className="navbar navbar-default" role="navigation">
-          <div className="col-sm-7 col-sm-offset-2" style={{marginTop: 15}}>
-            Common content
-          </div>
-        </nav>
-        <div className="container">
-          {this.props.children}
-        </div>
+        {this.props.children}
       </div>
-    )
+    );
   }
 });
 
