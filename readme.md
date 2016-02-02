@@ -1,22 +1,22 @@
 # Spotlight Dashboard
-* Front end for the most kickass dashboard for devshops *
+**Frontend app for the Spotlight dashboard**
 
 ## Setup instruction
 
  - Make sure you are using Node v5.4.0
  ```
-   nvm install v5.4.0
-   nvm use v5.4.0
+nvm install v5.4.0
+nvm use v5.4.0
  ```
 
  - Install all the requirements
  ```
-    npm install
+npm install
  ```
 
  - Run the server
  ```
-   npm server
+npm server
  ```
- - view the latest version of the application at localhost:8080
+ - View the latest version of the application at `http://localhost:8080/`
 
