@@ -16,7 +16,7 @@ npm install
 
  - Run the server
  ```
-npm server
+npm start
  ```
  - View the latest version of the application at `http://localhost:8080/`
 
