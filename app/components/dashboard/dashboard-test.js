@@ -5,7 +5,7 @@ const Dashboard = require('./dashboard');
 
 describe('Dashboard', function() {
   it('can render the dashboard', function() {
-    const root = TestUtils.renderIntoDocument(<Dashboard/>);
-    expect(root).toExist();
+    const rendered = TestUtils.renderIntoDocument(<Dashboard/>);
+    expect(rendered).toExist();
   });
 });
