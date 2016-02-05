@@ -1,3 +1,5 @@
+const Webpack = require('webpack');
+
 module.exports = {
   entry: './app/App.js',
   output: {
@@ -21,6 +23,12 @@ module.exports = {
       },
     ]
   },
+  plugins: [
+    new Webpack.ProvidePlugin({
+      'Promise': 'es6-promise',
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    })
+  ],
   node: {
     net: 'mock',
     dns: 'mock',

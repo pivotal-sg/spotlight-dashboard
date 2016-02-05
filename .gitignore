@@ -2,6 +2,7 @@
 node_modules
 .DS_Store
 public/bundle.js
+public/bundle.js.map
 
 # OSX
 #

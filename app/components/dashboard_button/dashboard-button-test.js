@@ -1,7 +1,7 @@
 const React = require('react');
 const TestUtils = require('react/lib/ReactTestUtils');
-const expect = require('expect');
 const DashboardButton = require('./dashboard-button');
+const expect = require('chai').expect;
 
 describe('DashboardButton', function() {
   const testAction = 'save';
@@ -24,17 +24,17 @@ describe('DashboardButton', function() {
 
   it('renders a link with the action', function() {
     const link = TestUtils.findRenderedDOMComponentWithTag(renderComponent(), 'a');
-    expect(link.textContent).toEqual(testAction);
+    expect(link.textContent).to.equal(testAction);
   });
 
   it('renders a link  with the correct href', function() {
     const link = TestUtils.findRenderedDOMComponentWithTag(renderComponent(), 'a');
-    expect(link.href).toContain(testHref);
+    expect(link.href).to.contain(testHref);
   });
 
   it('adds action details as a class', function() {
     const button = TestUtils.findRenderedDOMComponentWithTag(renderComponent(), 'div');
-    expect(button.classList.contains(testAction + '-button')).toBe(true);
+    expect(button.classList.contains(testAction + '-button')).to.be.true;
   });
 
   describe('in edit mode', function() {
@@ -44,8 +44,8 @@ describe('DashboardButton', function() {
 
     it('adds edit-only class', function() {
       const button = TestUtils.findRenderedDOMComponentWithTag(renderComponent(), 'div');
-      expect(button.classList.contains('edit-only')).toBe(true);
-      expect(button.classList.contains('view-only')).toBe(false);
+      expect(button.classList.contains('edit-only')).to.be.true;
+      expect(button.classList.contains('view-only')).to.be.false;
     });
   });
 
@@ -56,8 +56,8 @@ describe('DashboardButton', function() {
 
     it('adds view-only class', function() {
       const button = TestUtils.findRenderedDOMComponentWithTag(renderComponent(), 'div');
-      expect(button.classList.contains('edit-only')).toBe(false);
-      expect(button.classList.contains('view-only')).toBe(true);
+      expect(button.classList.contains('edit-only')).to.be.false;
+      expect(button.classList.contains('view-only')).to.be.true;
     });
   });
 });

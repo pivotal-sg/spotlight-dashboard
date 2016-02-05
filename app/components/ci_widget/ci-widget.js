@@ -12,7 +12,7 @@ const CiWidget = React.createClass({
     status: React.PropTypes.oneOf(['passed', 'failed', 'building', 'unknown']).isRequired,
     committer: React.PropTypes.string.isRequired,
     lastBuildTime: React.PropTypes.string.isRequired,
-    buildHistory: React.PropTypes.string.isRequired
+    buildHistory: React.PropTypes.array.isRequired
   },
 
   getDefaultProps: function() {

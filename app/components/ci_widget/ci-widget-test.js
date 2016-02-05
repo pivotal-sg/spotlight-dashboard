@@ -1,8 +1,8 @@
 const React = require('react');
 const TestUtils = require('react/lib/ReactTestUtils');
-const expect = require('expect');
 const moment = require('moment');
 const CiWidget = require('./ci-widget');
+const expect = require('chai').expect;
 
 describe('CiWidget', function() {
   let status = 'building';
@@ -25,21 +25,21 @@ describe('CiWidget', function() {
 
   it('renders the title', function() {
     const titleNode = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'project-name');
-    expect(titleNode.textContent).toEqual(widgetProps().title);
+    expect(titleNode.textContent).to.equal(widgetProps().title);
   });
 
   it('renders the time since the last build', function() {
     const titleNode = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'last-build-at');
-    expect(titleNode.textContent).toEqual('a few seconds ago');
+    expect(titleNode.textContent).to.equal('a few seconds ago');
   });
 
   it('renders the delete button', function() {
     const deleteLink = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'delete');
-    expect(deleteLink.href).toContain(widgetProps().widgetPath);
+    expect(deleteLink.href).to.contain(widgetProps().widgetPath);
   });
 
   it('renders the build status', function() {
-    expect(TestUtils.findRenderedDOMComponentWithClass(renderWidget(), widgetProps().status).tagName).toEqual('DIV');
+    expect(TestUtils.findRenderedDOMComponentWithClass(renderWidget(), widgetProps().status).tagName).to.equal('DIV');
   });
 
   describe('committers name', function() {
@@ -50,7 +50,7 @@ describe('CiWidget', function() {
 
       it('hides the committer', function() {
         const committerNode = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
-        expect(committerNode.classList.contains('hidden')).toBe(true);
+        expect(committerNode.classList.contains('hidden')).to.be.true;
       });
     });
 
@@ -61,7 +61,7 @@ describe('CiWidget', function() {
 
       it('hides the committer', function() {
         const committerNode = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
-        expect(committerNode.classList.contains('hidden')).toBe(true);
+        expect(committerNode.classList.contains('hidden')).to.be.true;
       });
     });
 
@@ -72,7 +72,7 @@ describe('CiWidget', function() {
 
       it('hides the committer', function() {
         const committerNode = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
-        expect(committerNode.classList.contains('hidden')).toBe(true);
+        expect(committerNode.classList.contains('hidden')).to.be.true;
       });
     });
 
@@ -83,15 +83,15 @@ describe('CiWidget', function() {
 
       it('shows the committer', function() {
         const committerNode = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
-        expect(committerNode.textContent).toEqual('by ' + widgetProps().committer);
-        expect(committerNode.classList.contains('hidden')).toBe(false);
+        expect(committerNode.textContent).to.equal('by ' + widgetProps().committer);
+        expect(committerNode.classList.contains('hidden')).to.be.false;
       });
     });
   });
 
   it('renders previous build status', function() {
     const nodes = TestUtils.scryRenderedDOMComponentsWithClass(renderWidget(), 'build-block');
-    expect(nodes.length).toEqual(4);
+    expect(nodes.length).to.equal(4);
   });
 
   it('renders previous build in reverse order and pads mising builds', function() {
@@ -102,10 +102,10 @@ describe('CiWidget', function() {
     ];
 
     const nodes = TestUtils.scryRenderedDOMComponentsWithClass(renderWidget(), 'build-block');
-    expect(nodes.length).toEqual(4);
-    expect(nodes[0].className).toContain('unknown');
-    expect(nodes[1].className).toContain('failed');
-    expect(nodes[2].className).toContain('unknown');
-    expect(nodes[3].className).toContain('passed');
+    expect(nodes.length).to.equal(4);
+    expect(nodes[0].className).to.contain('unknown');
+    expect(nodes[1].className).to.contain('failed');
+    expect(nodes[2].className).to.contain('unknown');
+    expect(nodes[3].className).to.contain('passed');
   });
 });
