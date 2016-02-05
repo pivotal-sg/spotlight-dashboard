@@ -2,9 +2,20 @@ module.exports = function(config) {
   config.set({
     browsers: [ 'Chrome' ],
     singleRun: true,
-    frameworks: [ 'mocha' ],
+    frameworks: [ 'mocha', 'sinon-chai'],
     files: [
       'tests.webpack.js'
+    ],
+    plugins: [
+      'karma-phantomjs-launcher',
+      'karma-chai',
+      'karma-chrome-launcher',
+      'karma-mocha',
+      'karma-sourcemap-loader',
+      'karma-webpack',
+      'karma-mocha-reporter',
+      'karma-sinon',
+      'karma-sinon-chai'
     ],
     preprocessors: {
       'tests.webpack.js': [ 'webpack', 'sourcemap' ]
