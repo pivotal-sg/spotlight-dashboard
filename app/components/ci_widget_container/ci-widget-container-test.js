@@ -11,8 +11,8 @@ const CiWidgetContainer = require('./ci-widget-container');
 const CiWidget = require('../ci_widget/ci-widget');
 
 describe('CiWidgetContainer', function() {
-  // let fakeTimerTick;
-  // let fakeFetch;
+  let fakeTimerTick;
+  let fakeFetch;
   let component;
   let ciWidget;
 
@@ -22,32 +22,30 @@ describe('CiWidgetContainer', function() {
     uuid: 'some uuid'
   };
 
-  //
-  // beforeEach(function() {
-  //   fakeFetch = expect.spyOn(window, 'fetch');
-  //   fakeTimerTick = sinon.spy('fakeTimerTick');
-  //
-  //   component = TestUtils.renderIntoDocument(<CiWidgetContainer {...widgetProps} timerTick={fakeTimerTick}/>);
-  //   ciWidget = TestUtils.findRenderedComponentWithType(component, CiWidget);
-  // });
-  //
-  // afterEach(function() {
-  //   fakeFetch.restore();
-  // });
-  //
-  //
-  it('passes its title to the CI widget component', function() {
-    const fakeTimerTick = sinon.spy();
+
+  beforeEach(function() {
+    // fakeFetch = expect.spyOn(window, 'fetch');
+    fakeTimerTick = sinon.spy();
+
     component = TestUtils.renderIntoDocument(<CiWidgetContainer {...widgetProps} timerTick={fakeTimerTick}/>);
-    // ciWidget = TestUtils.findRenderedComponentWithType(component, CiWidget);
-    // expect(ciWidget.props.title).to.equal(widgetProps.title);
+    ciWidget = TestUtils.findRenderedComponentWithType(component, CiWidget);
   });
 
-  // it('adds uuid as a data-element on the parent', function() {
-  //   const containerNode = TestUtils.findRenderedDOMComponentWithClass(component, 'ci-widget');
-  //   expect(containerNode.dataset.uuid).to.equal(widgetProps.uuid);
-  // });
-  //
+  afterEach(function() {
+    // fakeFetch.restore();
+  });
+
+
+  it('passes its title to the CI widget component', function() {
+    ciWidget = TestUtils.findRenderedComponentWithType(component, CiWidget);
+    expect(ciWidget.props.title).to.equal(widgetProps.title);
+  });
+
+  it('adds uuid as a data-element on the parent', function() {
+    const containerNode = TestUtils.findRenderedDOMComponentWithClass(component, 'ci-widget');
+    expect(containerNode.dataset.uuid).to.equal(widgetProps.uuid);
+  });
+
   // describe('build information', function() {
   //   it('calls the server to get latest build data', function() {
   //     component.refreshBuildInfo();
@@ -77,34 +75,35 @@ describe('CiWidgetContainer', function() {
   //     });
   //   });
   // });
-  //
-  // describe('updateBuildInfo', function() {
-  //   const testBuildInfo = {
-  //     state: 'passed',
-  //     committer: 'Luke Skywalker',
-  //     timestamp: 'A long time ago'
-  //   };
-  //
-  //   const olderBuildInfo = {
-  //     state: 'failded',
-  //     committer: 'Anakin Skywalker',
-  //     timestamp: 'A longer time ago'
-  //   };
-  //
-  //   const buildInfo = {
-  //     status: {
-  //       build_history: [testBuildInfo, olderBuildInfo]
-  //     }
-  //   };
-  //
-  //   it('updates the component state', function() {
-  //     component.onBuildUpdate(buildInfo);
-  //     expect(component.state.status).to.equal(testBuildInfo.state);
-  //     expect(component.state.committer).to.equal(testBuildInfo.committer);
-  //     expect(component.state.lastBuildTime).to.equal(testBuildInfo.timestamp);
-  //     expect(component.state.buildHistory).to.equal([olderBuildInfo]);
-  //   });
-  // });
+
+  describe('updateBuildInfo', function() {
+    const testBuildInfo = {
+      state: 'passed',
+      committer: 'Luke Skywalker',
+      timestamp: 'A long time ago'
+    };
+
+    const olderBuildInfo = {
+      state: 'failed',
+      committer: 'Anakin Skywalker',
+      timestamp: 'A longer time ago'
+    };
+
+    const buildInfo = {
+      status: {
+        build_history: [testBuildInfo, olderBuildInfo]
+      }
+    };
+
+    it('updates the component state', function() {
+      component.onBuildUpdate(buildInfo);
+      expect(component.state.status).to.equal(testBuildInfo.state);
+      expect(component.state.committer).to.equal(testBuildInfo.committer);
+      expect(component.state.lastBuildTime).to.equal(testBuildInfo.timestamp);
+      expect(component.state.buildHistory[0]).to.equal(olderBuildInfo);
+      expect(component.state.buildHistory.length).to.equal(1);
+    });
+  });
 
   // describe('componentDidMount', function() {
   //   beforeEach(function() {
@@ -131,7 +130,7 @@ describe('CiWidgetContainer', function() {
   //     expect(fakeTimerTick.calls.count()).to.be(2);
   //   });
   // });
-  //
+
   // it('passes the build status from its state to the CI widget component', function() {
   //   const expectedProps = {status: 'status', committer: 'committer name', lastBuildTime: 'last build', buildHistory: [{foo: 'bar'}]};
   //   component.setState(expectedProps);
