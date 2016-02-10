@@ -41,7 +41,7 @@
     "karma-mocha-reporter": "^1.1.5",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sinon": "^1.0.4",
-    "karma-sinon-chai": "^1.1.0",
+    "karma-sinon-chai": "github:wombatsecurity/karma-lolex-sinon-chai",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.4.5",

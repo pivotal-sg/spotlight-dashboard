@@ -1,9 +1,9 @@
 const React = require('react');
 const TestUtils = require('react/lib/ReactTestUtils');
 
-let chai = require('chai');
-let expect = require('chai').expect;
-let sinonChai = require('sinon-chai');
+const chai = require('chai');
+const expect = require('chai').expect;
+const sinonChai = require('sinon-chai');
 
 chai.use(sinonChai);
 
@@ -14,7 +14,6 @@ describe('CiWidgetContainer', function() {
   let fakeTimerTick;
   let fakeFetch;
   let component;
-  let ciWidget;
 
   const widgetProps = {
     title: 'Concierge',
@@ -22,22 +21,12 @@ describe('CiWidgetContainer', function() {
     uuid: 'some uuid'
   };
 
-
   beforeEach(function() {
-    // fakeFetch = expect.spyOn(window, 'fetch');
-    fakeTimerTick = sinon.spy();
-
-    component = TestUtils.renderIntoDocument(<CiWidgetContainer {...widgetProps} timerTick={fakeTimerTick}/>);
-    ciWidget = TestUtils.findRenderedComponentWithType(component, CiWidget);
+    component = TestUtils.renderIntoDocument(<CiWidgetContainer {...widgetProps}/>);
   });
-
-  afterEach(function() {
-    // fakeFetch.restore();
-  });
-
 
   it('passes its title to the CI widget component', function() {
-    ciWidget = TestUtils.findRenderedComponentWithType(component, CiWidget);
+    const ciWidget = TestUtils.findRenderedComponentWithType(component, CiWidget);
     expect(ciWidget.props.title).to.equal(widgetProps.title);
   });
 
@@ -46,35 +35,48 @@ describe('CiWidgetContainer', function() {
     expect(containerNode.dataset.uuid).to.equal(widgetProps.uuid);
   });
 
-  // describe('build information', function() {
-  //   it('calls the server to get latest build data', function() {
-  //     component.refreshBuildInfo();
-  //
-  //     const request = fakeFetch.calls[0];
-  //     expect(request.url).to.be('/api/ci_status/' + widgetProps.uuid);
-  //     expect(request.method).to.be('GET');
-  //   });
-  //
-  //   describe('when build status is retrieved', function() {
-  //     let fakeOnBuildUpdate;
-  //
-  //     beforeEach(function() {
-  //       fakeOnBuildUpdate = sinon.spy('fakeOnBuildUpdate');
-  //       component = TestUtils.renderIntoDocument(
-  //         <CiWidgetContainer {...widgetProps} onBuildUpdate={fakeOnBuildUpdate}/>
-  //       );
-  //
-  //       component.refreshBuildInfo();
-  //
-  //       const request = fakeFetch.calls[0];
-  //       request.respondWith({ status: 200, responseText: '{"foo": "bar"}' });
-  //     });
-  //
-  //     it('calls the onBuildUpdate function', function() {
-  //       expect(fakeOnBuildUpdate.calls.count()).to.be(1);
-  //     });
-  //   });
-  // });
+  describe('build information', function() {
+    let fakeOnBuildUpdate;
+    const res = new window.Response('{"hello":"world"}', {
+      status: 200,
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
+
+    beforeEach( function() {
+      fakeOnBuildUpdate = sinon.spy();
+      fakeTimerTick = sinon.spy();
+      component = TestUtils.renderIntoDocument(
+        <CiWidgetContainer {...widgetProps}
+        onBuildUpdate={fakeOnBuildUpdate}
+        timerTick={fakeTimerTick}/>
+      );
+      fakeFetch = sinon.stub(window, 'fetch');
+      window.fetch.returns(Promise.resolve(res));
+    });
+
+    afterEach(function() {
+      window.fetch.restore();
+    });
+
+    it('calls the server to get latest build data', function() {
+      component.refreshBuildInfo();
+
+      const callArgs = fakeFetch.args[0];
+      const url = callArgs[0];
+      const options = callArgs[1];
+      expect(url).to.equal('/api/ci_status/' + widgetProps.uuid);
+      expect(options.method).to.equal('GET');
+    });
+
+    it('calls the onBuildUpdate function upon completing the fetch', function(done) {
+      component.refreshBuildInfo();
+      done();
+      // to make sure that mocha proceeds with success callback.
+      expect(fakeOnBuildUpdate.callCount).to.equal(1);
+    });
+  });
 
   describe('updateBuildInfo', function() {
     const testBuildInfo = {
@@ -105,35 +107,39 @@ describe('CiWidgetContainer', function() {
     });
   });
 
-  // describe('componentDidMount', function() {
-  //   beforeEach(function() {
-  //     fakeTimerTick = jasmine.createSpy('timer tick');
-  //     jasmine.clock().install();
-  //   });
-  //
-  //   afterEach(function() {
-  //     jasmine.clock().uninstall();
-  //   });
-  //
-  //   it('causes the timerTick to be called at interval', function() {
-  //     const refreshRate = 20000;
-  //     component = TestUtils.renderIntoDocument(
-  //       <CiWidgetContainer {...widgetProps} timerTick={fakeTimerTick} refreshInterval={refreshRate}/>
-  //     );
-  //
-  //     expect(fakeTimerTick.calls.count()).to.be(1);
-  //
-  //     jasmine.clock().tick(refreshRate - 1);
-  //     expect(fakeTimerTick.calls.count()).to.be(1);
-  //
-  //     jasmine.clock().tick(2);
-  //     expect(fakeTimerTick.calls.count()).to.be(2);
-  //   });
-  // });
+  describe('componentDidMount', function() {
+    let clock;
 
-  // it('passes the build status from its state to the CI widget component', function() {
-  //   const expectedProps = {status: 'status', committer: 'committer name', lastBuildTime: 'last build', buildHistory: [{foo: 'bar'}]};
-  //   component.setState(expectedProps);
-  //   expect(ciWidget.props).to.equal(jasmine.objectContaining(expectedProps));
-  // });
+    beforeEach(function() {
+      fakeTimerTick = sinon.spy();
+      clock = sinon.useFakeTimers();
+    });
+
+    afterEach(function() {
+      clock.restore();
+    });
+
+    it('causes the timerTick to be called at interval', function() {
+      const refreshRate = 20000;
+      component = TestUtils.renderIntoDocument(
+        <CiWidgetContainer {...widgetProps} timerTick={fakeTimerTick} refreshInterval={refreshRate}/>
+      );
+
+      expect(fakeTimerTick.callCount).to.equal(1);
+
+      clock.tick(refreshRate - 1);
+      expect(fakeTimerTick.callCount).to.equal(1);
+
+      clock.tick(2);
+      expect(fakeTimerTick.callCount).to.equal(2);
+    });
+  });
+
+  it('passes the build status from its state to the CI widget component', function() {
+    const expectedProps = {status: 'status', committer: 'committer name', lastBuildTime: 'last build', buildHistory: [{foo: 'bar'}]};
+    component.setState(expectedProps);
+
+    const ciWidget = TestUtils.findRenderedComponentWithType(component, CiWidget);
+    expect(ciWidget.props).to.contain(expectedProps);
+  });
 });
