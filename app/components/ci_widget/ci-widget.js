@@ -73,7 +73,7 @@ const CiWidget = React.createClass({
               data-tooltip="Remove Widget"
               data-confirm="You are about to permanently delete this widget. This change cannot be undone. Are you sure?"
               rel="nofollow"
-              data-method="delete"
+              data-method="DELETE"
               href={ apiHost + this.props.widgetPath}>
               <i className="tiny material-icons">delete</i>
             </a>
