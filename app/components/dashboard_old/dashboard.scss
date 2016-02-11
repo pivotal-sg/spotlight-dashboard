@@ -1,63 +1,6 @@
-html, body, .dashboard{
-  height: 100%;
-  width: 100%;
-}
-
-.dashboard{
-  background-color: black;
-  .row {
-    background-color: black;
-    margin-bottom: 0;
-  }
-}
-
-.edit {
-  .react-grid-item {
-    cursor: move;
-  }
-}
-
 .react-grid-item {
-  overflow: hidden;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-
-  background-color: black !important;
+  border: 1px gray solid;
 }
-
-.edit-only {
-  visibility: hidden;
-}
-
-.edit {
-  .edit-only {
-    visibility: visible;
-  }
-  .view-only{
-    visibility: hidden;
-  }
-}
-
-.fixed-action-btn{
-  bottom: 24px;
-
-  &.save-button {
-    right: 24px;
-  }
-
-  &.edit-button {
-    right: 24px;
-  }
-
-  &.add-button {
-    right: 90px;
-  }
-}
-
 .react-grid-layout {
   position: relative;
   transition: height 200ms ease;

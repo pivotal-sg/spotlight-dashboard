@@ -1,5 +1,6 @@
 const React = require('react');
 const CiWidget = require('../ci_widget/ci-widget');
+import {apiHost} from '../../config/globals';
 
 const CiWidgetContainer = React.createClass({
   propTypes: {
@@ -55,7 +56,7 @@ const CiWidgetContainer = React.createClass({
   },
 
   refreshBuildInfo: function() {
-    const url = '/api/ci_status/' + this.props.uuid;
+    const url = apiHost + '/api/ci_status/' + this.props.uuid;
     const options = {
       method: 'GET',
       headers: {
@@ -63,7 +64,10 @@ const CiWidgetContainer = React.createClass({
       }
     };
 
-    fetch(url, options).then(this.onBuildUpdate);
+    fetch(url, options)
+    .then(function(response) {
+      return response.json();
+    }).then(this.onBuildUpdate);
   },
 
   render: function() {

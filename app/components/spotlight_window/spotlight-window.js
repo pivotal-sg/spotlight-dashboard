@@ -11,6 +11,24 @@ const SpotlightWindow = React.createClass({
     editMode: React.PropTypes.bool.isRequired
   },
 
+  getDefaultProps: function() {
+    return {
+      dashboardId: 1,
+      widgets: [
+        {
+          uuid: 'c3c2e397-2b24-4d1d-a577-8a130b041ed2',
+          title: 'Spotlight',
+          category: 'ci_widget',
+          layout: { h: 5,
+          w: 3,
+          x: 0,
+          y: 0}
+        }
+      ],
+      editMode: true
+    };
+  },
+
   defaultOnSave: function() {
     window.location.href = 'dashboards';
   },

@@ -66,7 +66,7 @@ describe('CiWidgetContainer', function() {
       const callArgs = fakeFetch.args[0];
       const url = callArgs[0];
       const options = callArgs[1];
-      expect(url).to.equal('/api/ci_status/' + widgetProps.uuid);
+      expect(url).to.contain('/api/ci_status/' + widgetProps.uuid);
       expect(options.method).to.equal('GET');
     });
 
