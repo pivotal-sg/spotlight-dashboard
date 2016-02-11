@@ -2,6 +2,8 @@ const React = require('react');
 const moment = require('moment');
 const _ = require('underscore');
 
+import {apiHost} from '../../config/globals';
+
 require('./ci-widget.scss');
 
 const maxBuildHistory = 4;
@@ -72,7 +74,7 @@ const CiWidget = React.createClass({
               data-confirm="You are about to permanently delete this widget. This change cannot be undone. Are you sure?"
               rel="nofollow"
               data-method="delete"
-              href={this.props.widgetPath}>
+              href={ apiHost + this.props.widgetPath}>
               <i className="tiny material-icons">delete</i>
             </a>
           </div>

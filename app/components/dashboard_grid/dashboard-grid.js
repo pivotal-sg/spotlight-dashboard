@@ -8,6 +8,8 @@ const DashboardButton = require('../dashboard_button/dashboard-button');
 const CiWidgetContainer = require('../ci_widget_container/ci-widget-container');
 const _ = require('underscore');
 
+import {apiHost, addPath} from '../../config/globals';
+
 require('./react-grid-layout.scss');
 require('./dashboard-grid.scss');
 require('./widget.scss');
@@ -45,7 +47,7 @@ const DashboardGrid = React.createClass({
 
 
   persistLayout: function() {
-    const url = '/api/dashboards/' + this.props.dashboardId + '/layout';
+    const url = apiHost + '/api/dashboards/' + this.props.dashboardId + '/layout';
     const options = {
       method: 'PUT',
       data: JSON.stringify({layout: this.state.currentLayout}),
@@ -86,8 +88,8 @@ const DashboardGrid = React.createClass({
   render: function() {
     return (
       <div className={ this.dashboardClass() }>
-        <DashboardButton action="save" href="eval(javascript:void(0);)" onClick={this.persistLayout} tooltip="Save Layout" editOnly={true}/>
-        <DashboardButton action="add" href="/widgets/new" tooltip="New Widget" editOnly={true}/>
+        <DashboardButton action="save" href="javascript:void(0);" onClick={this.persistLayout} tooltip="Save Layout" editOnly={true}/>
+        <DashboardButton action="add" href={apiHost + addPath} tooltip="New Widget" editOnly={true}/>
         <DashboardButton action="edit" href="/dashboards?edit=true" tooltip="Edit Dashboard" editOnly={false}/>
 
         <ReactGridLayout
