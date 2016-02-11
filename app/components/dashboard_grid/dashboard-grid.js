@@ -6,10 +6,11 @@ ReactGridLayout = widthProvider(ReactGridLayout);
 
 const DashboardButton = require('../dashboard_button/dashboard-button');
 const CiWidgetContainer = require('../ci_widget_container/ci-widget-container');
-const moment = require('moment');
 const _ = require('underscore');
 
+require('./react-grid-layout.scss');
 require('./dashboard-grid.scss');
+require('./widget.scss');
 
 const DashboardGrid = React.createClass({
   displayName: 'Dashboard Grid',
@@ -69,16 +70,22 @@ const DashboardGrid = React.createClass({
 
   renderWidgets: function() {
     return _.map(this.props.widgets, function(widget) {
-      return (<div className="widget card" key={widget.uuid} _grid={widget.layout}>
-                <CiWidgetContainer {...widget}/>
+      return (<div key={widget.uuid} _grid={widget.layout}>
+                <div className = "widget card">
+                  <CiWidgetContainer {...widget}/>
+                </div>
               </div>);
     });
   },
 
+  dashboardClass: function() {
+    const mode = this.props.editMode ? 'edit' : 'view';
+    return 'dashboard ' + mode;
+  },
+
   render: function() {
     return (
-      <div className={this.props.editMode ? 'edit' : 'view'}>
-        <div className="clock">{moment().format('h:mm:ss a')}</div>
+      <div className={ this.dashboardClass() }>
         <DashboardButton action="save" href="eval(javascript:void(0);)" onClick={this.persistLayout} tooltip="Save Layout" editOnly={true}/>
         <DashboardButton action="add" href="/widgets/new" tooltip="New Widget" editOnly={true}/>
         <DashboardButton action="edit" href="/dashboards?edit=true" tooltip="Edit Dashboard" editOnly={false}/>
