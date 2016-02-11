@@ -47,7 +47,7 @@ const SpotlightWindow = React.createClass({
   },
 
   defaultOnSave: function() {
-    window.location.href = 'dashboards';
+    // window.location.href = 'dashboards';
   },
 
   onSave: function() {

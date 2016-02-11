@@ -49,13 +49,12 @@ const DashboardGrid = React.createClass({
   persistLayout: function() {
     const url = apiHost + '/api/dashboards/' + this.props.dashboardId + '/layout';
     const options = {
-      method: 'PUT',
-      data: JSON.stringify({layout: this.state.currentLayout}),
-      dataType: 'json',
-      contentType: 'application/json',
+      method: 'post',
+      mode: 'no-cors',
+      body: JSON.stringify({layout: this.state.currentLayout}),
       headers: {
-        accept: 'application/json',
-        content_type: 'application/json'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       }
     };
 
@@ -86,11 +85,11 @@ const DashboardGrid = React.createClass({
   },
 
   render: function() {
+        // <DashboardButton action="edit" href="/dashboards?edit=true" tooltip="Edit Dashboard" editOnly={false}/>
     return (
       <div className={ this.dashboardClass() }>
         <DashboardButton action="save" href="javascript:void(0);" onClick={this.persistLayout} tooltip="Save Layout" editOnly={true}/>
         <DashboardButton action="add" href={apiHost + addPath} tooltip="New Widget" editOnly={true}/>
-        <DashboardButton action="edit" href="/dashboards?edit=true" tooltip="Edit Dashboard" editOnly={false}/>
 
         <ReactGridLayout
           {...this.props}
