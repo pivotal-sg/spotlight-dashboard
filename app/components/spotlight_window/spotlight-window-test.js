@@ -20,4 +20,42 @@ describe('SpotlightWindow', function() {
     expect(dashboard.props.foo).to.equal('bar');
     expect(dashboard.props.onSave).to.equal('fakeOnSave');
   });
+
+  describe('retreiveWidgets', function() {
+    let fakeFetch;
+    let component;
+    const res = new window.Response(
+      JSON.stringify({widgets: ['hello', 'world']}),
+      {
+        status: 200,
+        headers: {
+          'Content-type': 'application/json'
+        }
+      }
+    );
+
+    beforeEach(function() {
+      component = TestUtils.renderIntoDocument(<SpotlightWindow {...testProps}/>);
+      fakeFetch = sinon.stub(window, 'fetch');
+      window.fetch.returns(Promise.resolve(res));
+    });
+
+    afterEach(function() {
+      window.fetch.restore();
+    });
+
+    it('retreives all widgets', function() {
+      component.retreiveWidgets();
+
+      const callArgs = fakeFetch.args[0];
+      const url = callArgs[0];
+      expect(url).to.contain('/api/dashboards/default');
+    });
+
+    it('updates the component state', function(done) {
+      component.retreiveWidgets();
+      done();
+      expect(component.state.widgets).to.equal(['hello', 'world']);
+    });
+  });
 });
