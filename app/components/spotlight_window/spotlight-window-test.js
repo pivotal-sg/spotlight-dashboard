@@ -21,6 +21,24 @@ describe('SpotlightWindow', function() {
     expect(dashboard.props.onSave).to.equal('fakeOnSave');
   });
 
+  describe('switchToEditMode', function() {
+    it('changes state', function() {
+      const component = TestUtils.renderIntoDocument(<SpotlightWindow {...testProps}/>);
+      expect(component.state.editMode).to.equal(false);
+      component.switchToEditMode();
+      expect(component.state.editMode).to.equal(true);
+    });
+  });
+
+  describe('onSave', function() {
+    it('switches back to vies only mode', function() {
+      const component = TestUtils.renderIntoDocument(<SpotlightWindow {...testProps}/>);
+      component.setState({editMode: true});
+      component.defaultOnSave();
+      expect(component.state.editMode).to.equal(false);
+    });
+  });
+
   describe('retreiveWidgets', function() {
     let fakeFetch;
     let component;
