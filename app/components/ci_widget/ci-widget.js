@@ -51,6 +51,26 @@ const CiWidget = React.createClass({
     });
   },
 
+  deleteWidget: function() {
+    let data = new FormData();
+    data.append('_method', 'delete');
+
+    const url = apiHost + this.props.widgetPath;
+    const options = {
+      method: 'post',
+      mode: 'no-cors',
+      body: data,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    };
+    debugger;
+    window.fetch(url, options).then(function(response) {
+      console.log(response);
+    });
+  },
+
   render: function() {
     return (
       <div className={'inner-ci-widget ' + this.props.status}>
@@ -69,12 +89,10 @@ const CiWidget = React.createClass({
 
           <div className="buttons edit-only">
             <a className="delete btn-floating waves-effect waves-light white-text red tooltipped"
-              data-delay="20"
               data-tooltip="Remove Widget"
-              data-confirm="You are about to permanently delete this widget. This change cannot be undone. Are you sure?"
               rel="nofollow"
-              data-method="DELETE"
-              href={ apiHost + this.props.widgetPath}>
+              href="javascript:void(0);"
+              onClick={this.deleteWidget}>
               <i className="tiny material-icons">delete</i>
             </a>
           </div>
