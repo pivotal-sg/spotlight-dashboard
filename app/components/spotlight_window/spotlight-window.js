@@ -19,7 +19,7 @@ const SpotlightWindow = React.createClass({
   getInitialState: function() {
     return {
       widgets: [],
-      editMode: true
+      editMode: false
     };
   },
 
@@ -35,17 +35,21 @@ const SpotlightWindow = React.createClass({
   },
 
   defaultOnSave: function() {
-    // window.location.href = 'dashboards';
+    this.setState({editMode: false});
   },
 
   onSave: function() {
     return (this.props.onSave || this.defaultOnSave);
   },
 
+  swithToEditMode: function() {
+    this.setState({editMode: true});
+  },
+
   render: function() {
     return (
       <div>
-        <DashboardGrid  {...this.props} widgets={this.state.widgets} editMode={this.state.editMode} onSave={this.onSave()}/>
+        <DashboardGrid  {...this.props} widgets={this.state.widgets} editMode={this.state.editMode} onSave={this.onSave()} enterEditMode={this.swithToEditMode}/>
       </div>
     );
   }

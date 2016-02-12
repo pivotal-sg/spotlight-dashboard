@@ -21,7 +21,8 @@ const DashboardGrid = React.createClass({
     dashboardId: React.PropTypes.number.isRequired,
     onSave: React.PropTypes.func.isRequired,
     widgets: React.PropTypes.array.isRequired,
-    editMode: React.PropTypes.bool.isRequired
+    editMode: React.PropTypes.bool.isRequired,
+    enterEditMode: React.PropTypes.func.isRequired
   },
 
   getDefaultProps: function() {
@@ -85,11 +86,11 @@ const DashboardGrid = React.createClass({
   },
 
   render: function() {
-        // <DashboardButton action="edit" href="/dashboards?edit=true" tooltip="Edit Dashboard" editOnly={false}/>
     return (
       <div className={ this.dashboardClass() }>
         <DashboardButton action="save" href="javascript:void(0);" onClick={this.persistLayout} tooltip="Save Layout" editOnly={true}/>
         <DashboardButton action="add" href={apiHost + addPath} tooltip="New Widget" editOnly={true}/>
+        <DashboardButton action="edit" href="javascript:void(0);" onClick={this.props.enterEditMode} tooltip="Edit Dashboard" editOnly={false}/>
 
         <ReactGridLayout
           {...this.props}
