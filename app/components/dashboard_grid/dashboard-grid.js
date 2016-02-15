@@ -6,6 +6,7 @@ ReactGridLayout = widthProvider(ReactGridLayout);
 
 const DashboardButton = require('../dashboard_button/dashboard-button');
 const CiWidgetContainer = require('../ci_widget_container/ci-widget-container');
+const ClockWidget = require('../clock_widget/clock-widget');
 const _ = require('underscore');
 
 import {apiHost, addPath} from '../../config/globals';
@@ -71,14 +72,25 @@ const DashboardGrid = React.createClass({
     // which we think is caused by setState() triggering a layout change that ReactGridLayout is picking up on and re-triggering this method again, etc...
   },
 
+  renderWidget: function(widgetData) {
+    const widgetCategory = {
+      'ci_widget': CiWidgetContainer,
+      'clock_widget': ClockWidget
+    };
+    const WidgetType = widgetCategory[widgetData.category];
+    return <WidgetType {...widgetData} refreshDashboard={this.props.refreshDashboard}/>;
+  },
+
   renderWidgets: function() {
     const component = this;
     return _.map(this.props.widgets, function(widget) {
-      return (<div key={widget.uuid} _grid={widget.layout}>
-                <div className = "widget card">
-                  <CiWidgetContainer {...widget} refreshDashboard={component.props.refreshDashboard}/>
-                </div>
-              </div>);
+      return (
+        <div key={widget.uuid} _grid={widget.layout}>
+          <div className = "widget card">
+            {component.renderWidget(widget)}
+          </div>
+        </div>
+      );
     });
   },
 
