@@ -75,5 +75,10 @@ describe('SpotlightWindow', function() {
       done();
       expect(component.state.widgets).to.equal(['hello', 'world']);
     });
+
+    it('passes retrieveWidgets to the dashboard', function() {
+      const dashboard = TestUtils.findRenderedComponentWithType(component, DashboardGrid);
+      expect(dashboard.props.refreshDashboard).to.equal(component.retreiveWidgets);
+    });
   });
 });

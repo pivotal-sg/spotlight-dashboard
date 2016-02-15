@@ -22,7 +22,8 @@ const DashboardGrid = React.createClass({
     onSave: React.PropTypes.func.isRequired,
     widgets: React.PropTypes.array.isRequired,
     editMode: React.PropTypes.bool.isRequired,
-    enterEditMode: React.PropTypes.func.isRequired
+    enterEditMode: React.PropTypes.func.isRequired,
+    refreshDashboard: React.PropTypes.func.isRequired
   },
 
   getDefaultProps: function() {
@@ -71,10 +72,11 @@ const DashboardGrid = React.createClass({
   },
 
   renderWidgets: function() {
+    const component = this;
     return _.map(this.props.widgets, function(widget) {
       return (<div key={widget.uuid} _grid={widget.layout}>
                 <div className = "widget card">
-                  <CiWidgetContainer {...widget}/>
+                  <CiWidgetContainer {...widget} refreshDashboard={component.props.refreshDashboard}/>
                 </div>
               </div>);
     });

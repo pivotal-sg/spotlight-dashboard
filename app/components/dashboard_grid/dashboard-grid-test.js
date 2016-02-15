@@ -11,6 +11,7 @@ chai.use(sinonChai);
 
 const DashboardGrid = require('./dashboard-grid');
 const ReactGridLayout = require('react-grid-layout');
+const CiWidgetContainer = require('../ci_widget_container/ci-widget-container');
 
 describe('DashboardGrid', function() {
   let dashboard;
@@ -31,6 +32,7 @@ describe('DashboardGrid', function() {
     widgetPath: testPath
   };
   const fakeWindowRedirect = sinon.spy();
+  const fakeRefreshDashboard = sinon.spy();
   let fakeFetch;
   const fetchResponse = new window.Response('{"hello":"world"}', {
     status: 200,
@@ -41,7 +43,12 @@ describe('DashboardGrid', function() {
 
   beforeEach(function() {
     dashboard = TestUtils.renderIntoDocument(
-      <DashboardGrid widgets={[widgetProps]} dashboardId={1} editMode={false} onSave={fakeWindowRedirect}/>
+      <DashboardGrid widgets={[widgetProps]}
+      dashboardId={1}
+      editMode={false}
+      onSave={fakeWindowRedirect}
+      refreshDashboard={fakeRefreshDashboard}
+      />
     );
     fakeFetch = sinon.stub(window, 'fetch');
     window.fetch.returns(Promise.resolve(fetchResponse));
@@ -54,6 +61,15 @@ describe('DashboardGrid', function() {
   it('renders the widget', function() {
     const titleNode = TestUtils.findRenderedDOMComponentWithClass(dashboard, 'project-name');
     expect(titleNode.textContent).to.equal(testTitle);
+  });
+
+  it('passes all widget params', function() {
+    const widgetContainer = TestUtils.findRenderedComponentWithType(dashboard, CiWidgetContainer);
+    expect(widgetContainer.props.uuid).to.equal(testUuid);
+    expect(widgetContainer.props.title).to.equal(testTitle);
+    expect(widgetContainer.props.layout).to.equal(testLayout);
+    expect(widgetContainer.props.widgetPath).to.equal(testPath);
+    expect(widgetContainer.props.refreshDashboard).to.equal(fakeRefreshDashboard);
   });
 
   it('renders the widget with correct height', function() {

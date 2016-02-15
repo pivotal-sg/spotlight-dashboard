@@ -142,4 +142,49 @@ describe('CiWidgetContainer', function() {
     const ciWidget = TestUtils.findRenderedComponentWithType(component, CiWidget);
     expect(ciWidget.props).to.contain(expectedProps);
   });
+
+  it('renders the delete button', function() {
+    expect(TestUtils.findRenderedDOMComponentWithClass(component, 'delete')).to.exist;
+  });
+
+  describe('deleteWidget', function() {
+    let fakeRefreshDashboard;
+    let fakeFetch;
+    const res = new window.Response('{"hello":"world"}', {
+      status: 200,
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
+
+    beforeEach(function() {
+      fakeRefreshDashboard = sinon.spy();
+      component = TestUtils.renderIntoDocument(
+        <CiWidgetContainer {...widgetProps}
+        refreshDashboard={fakeRefreshDashboard}/>
+      );
+      fakeFetch = sinon.stub(window, 'fetch');
+      window.fetch.returns(Promise.resolve(res));
+    });
+
+    afterEach(function() {
+      window.fetch.restore();
+    });
+
+    it('makes a delete call to the API', function() {
+      component.deleteWidget();
+      const callArgs = fakeFetch.args[0];
+      const url = callArgs[0];
+      const options = callArgs[1];
+      expect(url).to.contain(widgetProps['widgetPath']);
+      expect(options.method).to.equal('post');
+    });
+
+    it('calls refresh widgets function on success', function(done) {
+      expect(fakeRefreshDashboard.callCount).to.equal(0);
+      component.deleteWidget();
+      done();
+      expect(fakeRefreshDashboard.callCount).to.equal(1);
+    });
+  });
 });

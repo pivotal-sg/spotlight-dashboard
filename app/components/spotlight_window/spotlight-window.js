@@ -49,7 +49,12 @@ const SpotlightWindow = React.createClass({
   render: function() {
     return (
       <div>
-        <DashboardGrid  {...this.props} widgets={this.state.widgets} editMode={this.state.editMode} onSave={this.onSave()} enterEditMode={this.switchToEditMode}/>
+        <DashboardGrid  {...this.props}
+        widgets={this.state.widgets}
+        editMode={this.state.editMode}
+        onSave={this.onSave()}
+        enterEditMode={this.switchToEditMode}
+        refreshDashboard={this.retreiveWidgets}/>
       </div>
     );
   }

@@ -33,10 +33,6 @@ describe('CiWidget', function() {
     expect(titleNode.textContent).to.equal('a few seconds ago');
   });
 
-  it('renders the delete button', function() {
-    expect(TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'delete')).to.exist;
-  });
-
   it('renders the build status', function() {
     expect(TestUtils.findRenderedDOMComponentWithClass(renderWidget(), widgetProps().status).tagName).to.equal('DIV');
   });
