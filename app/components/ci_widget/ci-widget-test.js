@@ -34,8 +34,7 @@ describe('CiWidget', function() {
   });
 
   it('renders the delete button', function() {
-    const deleteLink = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'delete');
-    expect(deleteLink.href).to.contain(widgetProps().widgetPath);
+    expect(TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'delete')).to.exist;
   });
 
   it('renders the build status', function() {
