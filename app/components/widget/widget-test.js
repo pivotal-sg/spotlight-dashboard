@@ -10,6 +10,7 @@ chai.use(sinonChai);
 const Widget = require('./widget');
 const ClockWidget = require('../clock_widget/clock-widget');
 const CiWidgetContainer = require('../ci_widget_container/ci-widget-container');
+const CalendarWidget = require('../calendar_widget/calendar-widget');
 
 describe('Widget', function() {
   let component;
@@ -91,6 +92,12 @@ describe('Widget', function() {
       it('renders a ci widget', function() {
         const widget = TestUtils.renderIntoDocument(<Widget {...propsWithoutCategory} category="ci_widget"/>);
         expect(TestUtils.findRenderedComponentWithType(widget, CiWidgetContainer)).to.exist;
+      });
+    });
+    describe('is gcal', function() {
+      it('renders a calendar widget', function() {
+        const widget = TestUtils.renderIntoDocument(<Widget {...propsWithoutCategory} category="gcal_widget"/>);
+        expect(TestUtils.findRenderedComponentWithType(widget, CalendarWidget)).to.exist;
       });
     });
   });
