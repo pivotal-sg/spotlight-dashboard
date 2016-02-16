@@ -78,30 +78,6 @@ const CiWidgetContainer = React.createClass({
     }).then(this.onBuildUpdate);
   },
 
-  deleteWidget: function() {
-    const component = this;
-    let data = new FormData();
-    data.append('_method', 'delete');
-
-    const url = apiHost + this.props.widgetPath;
-    const options = {
-      method: 'post',
-      mode: 'no-cors',
-      body: data,
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    };
-    window.fetch(url, options)
-    .then(function(response) {
-      console.log('success: ' + response);
-      component.props.refreshDashboard();
-    }).catch(function(error) {
-      console.log('request failed: ', error);
-    });
-  },
-
   render: function() {
     return (
       <div className="ci-widget card-content" data-uuid={this.props.uuid}>
@@ -113,16 +89,6 @@ const CiWidgetContainer = React.createClass({
           lastBuildTime={this.state.lastBuildTime}
           buildHistory={this.state.buildHistory}
         />
-
-        <div className="buttons edit-only">
-          <a className="delete btn-floating waves-effect waves-light white-text red tooltipped"
-            data-tooltip="Remove Widget"
-            rel="nofollow"
-            href="javascript:void(0);"
-            onClick={this.deleteWidget}>
-              <i className="tiny material-icons">delete</i>
-            </a>
-        </div>
       </div>
     );
   }

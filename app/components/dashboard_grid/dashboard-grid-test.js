@@ -11,8 +11,7 @@ chai.use(sinonChai);
 
 const DashboardGrid = require('./dashboard-grid');
 const ReactGridLayout = require('react-grid-layout');
-const CiWidgetContainer = require('../ci_widget_container/ci-widget-container');
-const ClockWidget = require('../clock_widget/clock-widget');
+const Widget = require('../widget/widget');
 
 describe('DashboardGrid', function() {
   let dashboard;
@@ -51,6 +50,7 @@ describe('DashboardGrid', function() {
       dashboardId={1}
       editMode={false}
       onSave={fakeWindowRedirect}
+      refreshDashboard={fakeRefreshDashboard}
       />
     );
     fakeFetch = sinon.stub(window, 'fetch');
@@ -66,61 +66,14 @@ describe('DashboardGrid', function() {
     expect(titleNode.textContent).to.equal(testTitle);
   });
 
-  describe('when category is ci widget', function() {
-    beforeEach(function() {
-      widgetProps = {
-        uuid: testUuid,
-        title: testTitle,
-        layout: testLayout,
-        widgetPath: testPath,
-        category: 'ci_widget'
-      };
-      dashboard = TestUtils.renderIntoDocument(
-        <DashboardGrid widgets={[widgetProps]}
-        dashboardId={1}
-        editMode={false}
-        onSave={fakeWindowRedirect}
-        refreshDashboard={fakeRefreshDashboard}
-        />
-      );
-    });
 
-    it('renders a ciWidgetContainer', function() {
-      const widgetContainer = TestUtils.findRenderedComponentWithType(dashboard, CiWidgetContainer);
-      expect(widgetContainer).to.exist;
-    });
-
-    it('passes all the props', function() {
-      const widgetContainer = TestUtils.findRenderedComponentWithType(dashboard, CiWidgetContainer);
-      expect(widgetContainer.props.uuid).to.equal(testUuid);
-      expect(widgetContainer.props.title).to.equal(testTitle);
-      expect(widgetContainer.props.layout).to.equal(testLayout);
-      expect(widgetContainer.props.widgetPath).to.equal(testPath);
-      expect(widgetContainer.props.refreshDashboard).to.equal(fakeRefreshDashboard);
-    });
-  });
-
-  describe('when category is clock widget', function() {
-    beforeEach(function() {
-      widgetProps = {
-        uuid: testUuid,
-        title: testTitle,
-        layout: testLayout,
-        widgetPath: testPath,
-        category: 'clock_widget'
-      };
-      dashboard = TestUtils.renderIntoDocument(
-        <DashboardGrid widgets={[widgetProps]}
-        dashboardId={1}
-        editMode={false}
-        />
-      );
-    });
-
-    it('renders a ClockWidget', function() {
-      const widget = TestUtils.findRenderedComponentWithType(dashboard, ClockWidget);
-      expect(widget).to.exist;
-    });
+  it('passes all the props', function() {
+    const widgetContainer = TestUtils.findRenderedComponentWithType(dashboard, Widget);
+    expect(widgetContainer.props.uuid).to.equal(testUuid);
+    expect(widgetContainer.props.title).to.equal(testTitle);
+    expect(widgetContainer.props.layout).to.equal(testLayout);
+    expect(widgetContainer.props.widgetPath).to.equal(testPath);
+    expect(widgetContainer.props.refreshDashboard).to.equal(fakeRefreshDashboard);
   });
 
   it('renders the widget with correct height', function() {
