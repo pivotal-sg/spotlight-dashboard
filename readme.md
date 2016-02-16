@@ -20,3 +20,6 @@ npm start
  ```
  - View the latest version of the application at `http://localhost:8080/`
 
+## Building Docker Image
+
+- `docker build -t spotlight-frontend .`
