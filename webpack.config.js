@@ -3,7 +3,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const plugins = [
     new Webpack.ProvidePlugin({
-      'Promise': 'es6-promise',
       'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     }),
     new ExtractTextPlugin("style.css", {
