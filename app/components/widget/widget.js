@@ -15,6 +15,12 @@ const Widget = React.createClass({
     category: React.PropTypes.string.isRequired
   },
 
+  deleteWidgetConfirm: function() {
+    if(confirm('You are about to permanently delete this widget. This change cannot be undone. Are you sure?')) {
+      this.deleteWidget();
+    }
+  },
+
   deleteWidget: function() {
     const component = this;
     let data = new FormData();
@@ -58,7 +64,7 @@ const Widget = React.createClass({
             data-tooltip="Remove Widget"
             rel="nofollow"
             href="javascript:void(0);"
-            onClick={this.deleteWidget}>
+            onClick={this.deleteWidgetConfirm}>
               <i className="tiny material-icons">delete</i>
           </a>
         </div>
