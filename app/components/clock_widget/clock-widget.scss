@@ -1,0 +1,16 @@
+.clock {
+  height: 100%;
+  width: 100%;
+  padding: 20px 0;
+  background-color: #F2D4A6;
+  text-align: center;
+  color: #58534C;
+  .time {
+    font-size: 80px;
+    font-weight: bold;
+  }
+  .date{
+    font-size: 35px;
+    line-height: 15px;
+  }
+}
