@@ -1,6 +1,12 @@
 module.exports = function(config) {
   config.set({
     browsers: [ 'Chrome' ],
+    customLaunchers: {
+        Chrome_travis_ci: {
+            base: 'Chrome',
+            flags: ['--no-sandbox']
+        }
+    },
     singleRun: true,
     frameworks: [ 'mocha', 'sinon-chai'],
     files: [
@@ -44,4 +50,8 @@ module.exports = function(config) {
       noInfo: true
     }
   });
+
+  if(process.env.TRAVIS){
+    config.browsers = ['Chrome_travis_ci'];
+  }
 };
