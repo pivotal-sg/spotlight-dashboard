@@ -16,8 +16,9 @@ npm install
 
  - Run the server
  ```
-npm start
+API_HOST=http://localhost:3000 npm start
  ```
+
  - View the latest version of the application at `http://localhost:8080/`
 
 ## Compiling Static Assets

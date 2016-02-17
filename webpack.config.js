@@ -1,31 +1,6 @@
 const Webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const plugins = [
-    new Webpack.ProvidePlugin({
-      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-    }),
-    new ExtractTextPlugin("style.css", {
-      allChunks: true
-    })
-  ];
-
-if(process.env.NODE_ENV == 'production') {
-  plugins.push(
-    new Webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-      "process.env.API_HOST": JSON.stringify("")
-    })
-  );
-} else {
-  plugins.push(
-    new Webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-      "process.env.API_HOST": JSON.stringify("http://localhost:3000")
-    })
-  );
-}
-
 module.exports = {
   entry: './app/App.js',
   output: {
@@ -53,7 +28,18 @@ module.exports = {
       }
     ]
   },
-  plugins: plugins,
+  plugins: [
+    new Webpack.ProvidePlugin({
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    }),
+    new ExtractTextPlugin("style.css", {
+      allChunks: true
+    }),
+    new Webpack.DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+      "process.env.API_HOST": JSON.stringify(process.env.API_HOST)
+    })
+  ],
   node: {
     net: 'mock',
     dns: 'mock',
