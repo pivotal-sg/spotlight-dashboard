@@ -1,3 +1,15 @@
 language: node_js
 node_js:
   - "5.4.0"
+before_install:
+  - export CHROME_BIN=chromium-browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+deploy:
+  provider: heroku
+  api_key:
+    secure: yFkg+MX5KNjvVRcsMEvQo4On0o2JQ8vYi/2nr6ZiG/7s+5WiUqjZ0Lzr5aJyjDPl9Sh1vIbJo6s3IPZdm3B0Ja5Dz8aFDkZrmpBgzm5W3A9vefXBvIgU5CtSORnhha5vH/ztmuCoZWvAyuWcfFt7gK2W8TewozrdIleXH8ZY53ZLu7tWijHhXSJroWqjVz8eDAtysdaIazp+Ia6iBJDEcuF5vuInD7azBeHksZ5Kb69/hT+AAH5I0EWEumpDOkaLITiPHsXmHrztMuDdGCp4cDlIUSiLQkDrpEpFmfrwzaTqPIK0nvbDaLZ8e0FKM/jHyUPNDzLj08+UIKeUyubYir2tQZkWINICfoSv24neO/Q+vJt4vq764Ls9Upm2zQFWk9foMj38BEhuLmWAPmcMakDFKOQ97TLA/lvbrdz9HqGlvYdT1cDw95U6c369L20jEULuA+JwiJEnsJlleN1J4RJaP15GYCDPuUdG0YzI5/5/dLIsn7yvGmeVR5AtqF8weFQ3lLtcsONrvquF8RQBdnDqsRdpxVtcWtER7+lR11Q7TChgzzVOTtTs9MeYCyGKjKzmwynie3B1vVJZVMRxRjvt/XSbSMI7yoj/i4p84U/7g3VRIwIKNrSPcDwwLKFvLaV1mzAckomL40LbPN5R+z1fCgDjG95P7ylEp/xji1I=
+  app:
+    master: spotlight-frontend
+  on:
+    repo: neo/spotlight-dashboard
