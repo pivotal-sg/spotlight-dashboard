@@ -20,6 +20,10 @@ npm start
  ```
  - View the latest version of the application at `http://localhost:8080/`
 
+## Compiling Static Assets
+
+- `NODE_ENV=production webpack -p`
+
 ## Building Docker Image
 
 - `docker build -t spotlight-frontend .`
