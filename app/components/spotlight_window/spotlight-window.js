@@ -1,3 +1,5 @@
+/* globals $ */
+
 const React = require('react');
 const DashboardGrid = require('../dashboard_grid/dashboard-grid');
 import {apiHost} from '../../config/globals';
@@ -29,9 +31,8 @@ const SpotlightWindow = React.createClass({
 
   retreiveWidgets: function() {
     const parent = this;
-    fetch(apiHost + '/api/dashboards/default')
-      .then(function(response) {return response.json(); })
-      .then(function(json) { parent.setState({widgets: json.widgets}); });
+    $.ajax(apiHost + '/api/dashboards/default')
+      .done(function(data) { parent.setState({widgets: data.widgets}); });
   },
 
   defaultOnSave: function() {
