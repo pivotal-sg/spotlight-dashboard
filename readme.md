@@ -23,7 +23,7 @@ API_HOST=http://localhost:3000 npm start
 
 ## Compiling Static Assets
 
-- `NODE_ENV=production webpack -p`
+- `NODE_ENV=production API_HOST=http://spotlight.herokuapp.com webpack -p`
 
 ## Building Docker Image
 
