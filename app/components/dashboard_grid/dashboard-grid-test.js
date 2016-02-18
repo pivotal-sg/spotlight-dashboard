@@ -18,7 +18,7 @@ describe('DashboardGrid', function() {
   const testTitle = 'Concierge';
   const testUuid = '123456789';
   const testPath = '/widget_path';
-  const rowHeight = 100;
+  const rowHeight = 25;
   const testLayout = {
     x: 3,
     y: 0,
