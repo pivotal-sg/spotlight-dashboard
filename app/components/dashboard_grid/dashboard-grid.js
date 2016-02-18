@@ -29,7 +29,7 @@ const DashboardGrid = React.createClass({
     return {
       autoSize: true,
       cols: 12,
-      rowHeight: 100,
+      rowHeight: 25,
       margin: [10, 10],
       minH: 2,
       minW: 1,
