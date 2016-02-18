@@ -33,7 +33,7 @@ const DashboardGrid = React.createClass({
       margin: [10, 10],
       minH: 2,
       minW: 1,
-      maxH: 12,
+      maxH: 100,
       maxW: 12,
       useCSSTransforms: true,
       listenToWindowResize: true,
