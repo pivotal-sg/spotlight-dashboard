@@ -4,7 +4,7 @@
   "description": "Frontend for spotlight",
   "main": "index.js",
   "scripts": {
-    "postinstall": "webpack -p",
+    "postinstall": "webpack",
     "start": "node server.js",
     "test": "karma start"
   },
