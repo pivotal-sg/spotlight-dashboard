@@ -1,3 +1,4 @@
+/*globals $ */
 const React = require('react');
 
 let ReactGridLayout = require('react-grid-layout');
@@ -22,7 +23,8 @@ const DashboardGrid = React.createClass({
     widgets: React.PropTypes.array.isRequired,
     editMode: React.PropTypes.bool.isRequired,
     enterEditMode: React.PropTypes.func.isRequired,
-    refreshDashboard: React.PropTypes.func.isRequired
+    refreshDashboard: React.PropTypes.func.isRequired,
+    hideButtonTimeout: React.PropTypes.number
   },
 
   getDefaultProps: function() {
@@ -38,7 +40,8 @@ const DashboardGrid = React.createClass({
       useCSSTransforms: true,
       listenToWindowResize: true,
       verticalCompact: true,
-      className: 'layout'
+      className: 'layout',
+      hideButtonTimeout: 1 * 60 * 1000
     };
   },
 
@@ -46,6 +49,9 @@ const DashboardGrid = React.createClass({
     return {currentLayout: []};
   },
 
+  componentDidMount: function() {
+    setTimeout(function() { $('.edit-button').hide(); }, this.props.hideButtonTimeout);
+  },
 
   persistLayout: function() {
     const url = apiHost + '/api/dashboards/' + this.props.dashboardId + '/layout';

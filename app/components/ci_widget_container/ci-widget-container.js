@@ -45,7 +45,6 @@ const CiWidgetContainer = React.createClass({
   },
 
   defaultTimerTick: function() {
-    console.log(this.props.uuid + ': timer tick');
     this.refreshBuildInfo();
   },
 

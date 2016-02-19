@@ -54,7 +54,6 @@ const CalendarWidget = React.createClass({
         events: json.events,
         lastUpdatedAt: moment().format('H:mm')
       });
-      console.log('data_received');
     });
   },
 
