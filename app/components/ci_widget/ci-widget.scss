@@ -1,5 +1,5 @@
 $build-history-height: 15%;
-$widget-border-radius: 0.5vmax;
+$widget-border-radius: 0.4vmax;
 
 .ci-widget{
   padding: 0 !important;
@@ -18,12 +18,9 @@ $widget-border-radius: 0.5vmax;
 
 
       .project-name {
-        padding-left: 10px;
+        padding-left: 1.5vmax;
         font-weight: 600;
         font-size: 3vmax;
-        opacity: 0.7;
-        text-shadow: 0px 1px 1px #4d4d4d;
-        color: #222;
       }
 
       .commit-info {
@@ -35,8 +32,14 @@ $widget-border-radius: 0.5vmax;
         font-size: 1.8vmax;
         line-height: 1.8vmax;
         font-weight: 600;
+
         .inner-div{
           text-align: center;
+          .committer {
+            font-weight: normal;
+            font-size: 1.2vmax;
+            line-height: 2.4vmax;
+          }
         }
       }
     }
@@ -49,6 +52,8 @@ $widget-border-radius: 0.5vmax;
     bottom: 0px;
 
     border-bottom-left-radius: $widget-border-radius;
+    -moz-border-bottom-left-radius: $widget-border-radius;
+    -webkit-border-bottom-left-radius: $widget-border-radius;
     right: 0;
 
     background-color: black;
@@ -57,12 +62,20 @@ $widget-border-radius: 0.5vmax;
     .build-block {
       width: 20%;
       height: 100%;
-      border: 1px black solid;
+      border: 2px black solid;
       border-radius: 0 0 $widget-border-radius $widget-border-radius;
+      -moz-border-radius: 0 0 $widget-border-radius $widget-border-radius;
+      -webkit-border-radius: 0 0 $widget-border-radius $widget-border-radius;
       float: left;
-      -webkit-box-shadow: inset 0px 10px 20px 0px rgba(0,0,0,0.5);
-      -moz-box-shadow: inset 0px 10px 20px 0px rgba(0,0,0,0.5);
-      box-shadow: inset 0px 10px 20px 0px rgba(0,0,0,0.5);
+      -webkit-box-shadow: inset 0px 10px 0px 0px rgba(0, 0, 0, 0.35);
+      -moz-box-shadow: inset 0px 10px 0px 0px rgba(0, 0, 0, 0.35);
+      box-shadow: inset 0px 10px 0px 0px rgba(0, 0, 0, 0.35);
+      opacity: 0.7;
+
+      &:first-child {
+        border-left: none;
+      }
+
       &:last-child {
         float: right;
         border-right: none;
@@ -70,6 +83,7 @@ $widget-border-radius: 0.5vmax;
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
+        opacity: 1;
       }
     }
   }
@@ -81,6 +95,9 @@ $widget-border-radius: 0.5vmax;
 
   .failed, .errored{
     background-color: #F16C4E;
+    .commit-info {
+      top: 40% !important;
+    }
   }
 
   .building, .started{

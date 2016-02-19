@@ -1,6 +1,7 @@
 const React = require('react');
 const moment = require('moment');
 const _ = require('underscore');
+const maxCommitterNameLength = 20;
 
 import {apiHost} from '../../config/globals';
 
@@ -27,8 +28,8 @@ const CiWidget = React.createClass({
   committerInfo: function() {
     if (this.props.committer) {
       const committerName = this.props.committer;
-      const fomattedCommitterName = (committerName.length > 15) ?
-        (committerName.substring(0, 12) + '...') :
+      const fomattedCommitterName = (committerName.length > maxCommitterNameLength) ?
+        (committerName.substring(0, maxCommitterNameLength - 3) + '...') :
         committerName;
       return ('by ' + fomattedCommitterName);
     }

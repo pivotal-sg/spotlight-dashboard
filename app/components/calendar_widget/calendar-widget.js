@@ -2,6 +2,8 @@ const React = require('react');
 const moment = require('moment');
 const _ = require('underscore');
 
+const maxTitleLength = 32;
+
 import {apiHost} from '../../config/globals';
 
 require('./calendar-widget.scss');
@@ -23,7 +25,6 @@ const CalendarWidget = React.createClass({
     return {
       events: [],
       timerId: null,
-      lastUpdatedAt: null
     };
   },
 
@@ -51,19 +52,24 @@ const CalendarWidget = React.createClass({
       return response.json();
     }).then( function(json) {
       component.setState({
-        events: json.events,
-        lastUpdatedAt: moment().format('H:mm')
+        events: json.events
       });
     });
+  },
+
+  truncatedTitle: function(title) {
+    return (title.length > maxTitleLength) ?
+      (title.substring(0, maxTitleLength - 3) + '...') :
+      title;
   },
 
   renderEvent: function(eventData) {
     return (
       <div className="event">
         <div className="timestamp">
-          <span>{moment(eventData.start).fromNow()} </span>
+          <span>{moment(eventData.start).fromNow()}</span>
         </div>
-        <div className="title"> {eventData.title} </div>
+        <div className="title"> {this.truncatedTitle(eventData.title)} </div>
         <div className="duration"> for
           <span className="humanized-duration">
             {' ' +  moment.duration(moment(eventData.end) - moment(eventData.start)).humanize() + '.'}
@@ -82,9 +88,6 @@ const CalendarWidget = React.createClass({
       <div className="calendar" data-uuid={this.props.uuid}>
         <div className = "events">
           {this.renderEvents()}
-        </div>
-        <div className = "last-updated-at">
-          { 'Last updated at ' + this.state.lastUpdatedAt }
         </div>
       </div>
     );

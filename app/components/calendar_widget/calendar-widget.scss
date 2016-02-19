@@ -1,5 +1,5 @@
 $dark-color: #58534C;
-$light-color: #F2D4A6;
+$light-color: #F1D4A9;
 
 .calendar {
   height: 100%;
@@ -11,34 +11,36 @@ $light-color: #F2D4A6;
   .events {
     padding: 0 2vmax;
     width: 100%;
+    position: absolute;
+    bottom: 2vmax;
+
     .event {
       padding-bottom: 50px;
       .timestamp {
          color: $light-color;
-         font-size: 1.5vmax;
+         font-size: 1.1vmax;
          text-transform: uppercase;
-         font-weight: bold;
+         letter-spacing: 0.07vmax;
          span {
            background-color: $dark-color;
-           padding: 2px 5px;
+           padding: 2px 16px;
+           border-radius: 3px;
+           -moz-border-radius: 3px;
+           -webkit-border-radius: 3px;
          }
       }
       .title {
-        padding-top: 10px;
+        padding-top: 20px;
         font-size: 2.5vmax;
-        line-height: 2.5vmax;
+        line-height: 2.8vmax;
       }
       .duration {
         font-size: 15px;
+        padding-top: 10px;
         .humanized-duration {
           font-weight: bold;
         }
       }
     }
-  }
-  .last-updated-at {
-    position: fixed;
-    bottom: 5px;
-    right: 5px;
   }
 }
