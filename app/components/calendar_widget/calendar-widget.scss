@@ -4,28 +4,29 @@ $light-color: #F2D4A6;
 .calendar {
   height: 100%;
   width: 100%;
-  padding-top: 40px;
+  padding-top: 2vmax;
   background-color: $light-color;
   color: $dark-color;
 
   .events {
-    padding: 0 50px;
+    padding: 0 2vmax;
     width: 100%;
     .event {
       padding-bottom: 50px;
       .timestamp {
          color: $light-color;
-         font-size: 22px;
+         font-size: 1.5vmax;
          text-transform: uppercase;
          font-weight: bold;
          span {
            background-color: $dark-color;
-           padding: 5px 10px;
+           padding: 2px 5px;
          }
       }
       .title {
         padding-top: 10px;
-        font-size: 35px;
+        font-size: 2.5vmax;
+        line-height: 2.5vmax;
       }
       .duration {
         font-size: 15px;

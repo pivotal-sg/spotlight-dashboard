@@ -57,7 +57,7 @@ const CiWidgetContainer = React.createClass({
         status: lastBuild.state,
         committer: lastBuild.committer,
         lastBuildTime: lastBuild.timestamp,
-        buildHistory: buildHistory.slice(1, 5)
+        buildHistory: buildHistory
       });
     }
   },

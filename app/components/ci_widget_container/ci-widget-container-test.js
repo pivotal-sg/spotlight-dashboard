@@ -102,8 +102,9 @@ describe('CiWidgetContainer', function() {
       expect(component.state.status).to.equal(testBuildInfo.state);
       expect(component.state.committer).to.equal(testBuildInfo.committer);
       expect(component.state.lastBuildTime).to.equal(testBuildInfo.timestamp);
-      expect(component.state.buildHistory[0]).to.equal(olderBuildInfo);
-      expect(component.state.buildHistory.length).to.equal(1);
+      expect(component.state.buildHistory[0]).to.equal(testBuildInfo);
+      expect(component.state.buildHistory[1]).to.equal(olderBuildInfo);
+      expect(component.state.buildHistory.length).to.equal(2);
     });
   });
 

@@ -86,7 +86,7 @@ describe('CiWidget', function() {
 
   it('renders previous build status', function() {
     const nodes = TestUtils.scryRenderedDOMComponentsWithClass(renderWidget(), 'build-block');
-    expect(nodes.length).to.equal(4);
+    expect(nodes.length).to.equal(5);
   });
 
   it('renders previous build in reverse order and pads mising builds', function() {
@@ -97,10 +97,11 @@ describe('CiWidget', function() {
     ];
 
     const nodes = TestUtils.scryRenderedDOMComponentsWithClass(renderWidget(), 'build-block');
-    expect(nodes.length).to.equal(4);
+    expect(nodes.length).to.equal(5);
     expect(nodes[0].className).to.contain('unknown');
-    expect(nodes[1].className).to.contain('failed');
-    expect(nodes[2].className).to.contain('unknown');
-    expect(nodes[3].className).to.contain('passed');
+    expect(nodes[1].className).to.contain('unknown');
+    expect(nodes[2].className).to.contain('failed');
+    expect(nodes[3].className).to.contain('unknown');
+    expect(nodes[4].className).to.contain('passed');
   });
 });

@@ -6,7 +6,7 @@ import {apiHost} from '../../config/globals';
 
 require('./ci-widget.scss');
 
-const maxBuildHistory = 4;
+const maxBuildHistory = 5;
 const CiWidget = React.createClass({
   propTypes: {
     title: React.PropTypes.string.isRequired,
@@ -62,9 +62,9 @@ const CiWidget = React.createClass({
               <p className={ 'committer ' + this.showCommitter() }>{this.committerInfo()}</p>
             </div>
           </div>
-          <div className="build-history">
-            {this.renderBuildHistory()}
-          </div>
+        </div>
+        <div className="build-history">
+          {this.renderBuildHistory()}
         </div>
       </div>
     );

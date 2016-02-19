@@ -6,11 +6,12 @@
   text-align: center;
   color: #58534C;
   .time {
-    font-size: 80px;
+    font-size: 5vmax;
+    line-height: 5vmax;
     font-weight: bold;
   }
   .date{
-    font-size: 35px;
-    line-height: 15px;
+    font-size: 2vmax;
+    line-height: 2vmax;
   }
 }
