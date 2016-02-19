@@ -27,8 +27,8 @@ const CiWidget = React.createClass({
   committerInfo: function() {
     if (this.props.committer) {
       const committerName = this.props.committer;
-      const fomattedCommitterName = (committerName.length > 20) ?
-        (committerName.substring(0, 17) + '...') :
+      const fomattedCommitterName = (committerName.length > 15) ?
+        (committerName.substring(0, 12) + '...') :
         committerName;
       return ('by ' + fomattedCommitterName);
     }
@@ -56,7 +56,6 @@ const CiWidget = React.createClass({
       <div className={'inner-ci-widget ' + this.props.status}>
         <div className="content">
           <p className="project-name">{this.props.title}</p>
-          <div className="symbol"></div>
           <div className="commit-info">
             <div className="inner-div">
               <p className="last-build-at">{this.timeAgo(this.props.lastBuildTime)}</p>
