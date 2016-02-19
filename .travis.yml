@@ -4,6 +4,7 @@ node_js:
 cache:
   directories:
   - node_modules
+  - .chrome
 before_install:
   - ./scripts/install_chromium.sh
   - export CHROME_BIN=$HOME/.chrome/chromium/chrome-linux/chrome
@@ -16,4 +17,4 @@ deploy:
   app:
     master: spotlight-frontend
   on:
-    repo: neo/spotlight-dashboard
+    repo: neo/spotlight_dashboard
