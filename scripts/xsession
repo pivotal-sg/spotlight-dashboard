@@ -1,0 +1,14 @@
+#!/bin/bash
+
+xset s off
+xset -dpms
+xset noblank
+epiphany-browser http://kent-ridge.local:3030 &
+exec matchbox-window-manager -use_titlebar no &
+sleep 20s
+xte "key F11" -x:0
+
+while true; do
+        sleep 60o
+        xte "key F5" -x:0
+done
