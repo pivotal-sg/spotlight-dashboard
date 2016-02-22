@@ -7,13 +7,14 @@ const expect = require('chai').expect;
 describe('CiWidget', function() {
   let status = 'building';
   let buildHistory = [ {state: 'passed'} ];
+  let committerName = 'committer name';
 
   const widgetProps = function() {
     return {
       title: 'Concierge',
       widgetPath: '/widget_path',
       status: status,
-      committer: 'committer name',
+      committer: committerName,
       lastBuildTime: moment().format(),
       buildHistory: buildHistory
     };
@@ -78,8 +79,14 @@ describe('CiWidget', function() {
 
       it('shows the committer', function() {
         const committerNode = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
-        expect(committerNode.textContent).to.equal('by ' + widgetProps().committer);
+        expect(committerNode.textContent).to.equal(widgetProps().committer);
         expect(committerNode.classList.contains('hidden')).to.be.false;
+      });
+
+      it('replaces the + in committer names with &', function() {
+        committerName = 'person1 + person 2';
+        const committerNode = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
+        expect(committerNode.textContent).to.equal('person1 & person 2');
       });
     });
   });

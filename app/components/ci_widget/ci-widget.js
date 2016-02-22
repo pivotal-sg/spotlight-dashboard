@@ -2,8 +2,6 @@ const React = require('react');
 const moment = require('moment');
 const _ = require('underscore');
 
-import {apiHost} from '../../config/globals';
-
 require('./ci-widget.scss');
 
 const maxBuildHistory = 5;
@@ -20,7 +18,8 @@ const CiWidget = React.createClass({
   getDefaultProps: function() {
     return {
       status: 'unknown',
-      buildHistory: [ ]
+      buildHistory: [ ],
+      committer: ' '
     };
   },
 
@@ -49,7 +48,7 @@ const CiWidget = React.createClass({
           <div className="commit-info">
             <div className="inner-div">
               <p className="last-build-at">{this.timeAgo(this.props.lastBuildTime)}</p>
-              <p className={ 'committer ' + this.showCommitter() }>{'by ' + this.props.committer}</p>
+              <p className={ 'committer ' + this.showCommitter() }>{this.props.committer.split('+').join('&')}</p>
             </div>
           </div>
         </div>
