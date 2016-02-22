@@ -1,5 +1,5 @@
 $build-history-height: 15%;
-$widget-border-radius: 0.4vmax;
+$widget-border-radius: 10px;
 
 .ci-widget{
   padding: 0 !important;
@@ -29,17 +29,20 @@ $widget-border-radius: 0.4vmax;
         margin: auto;
         width: 100%;
         padding: 0 20px;
-        font-size: 1.8vmax;
-        line-height: 1.8vmax;
-        font-weight: 600;
+        font-size: 2vmax;
+        line-height: 2vmax;
+        font-weight: 700;
 
         .inner-div{
           text-align: center;
           .committer {
             font-weight: normal;
-            font-size: 1.2vmax;
-            line-height: 2.4vmax;
-          }
+            font-size: 1.8vmax;
+            line-height: 3vmax;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+         }
         }
       }
     }
@@ -67,9 +70,9 @@ $widget-border-radius: 0.4vmax;
       -moz-border-radius: 0 0 $widget-border-radius $widget-border-radius;
       -webkit-border-radius: 0 0 $widget-border-radius $widget-border-radius;
       float: left;
-      -webkit-box-shadow: inset 0px 10px 0px 0px rgba(0, 0, 0, 0.35);
-      -moz-box-shadow: inset 0px 10px 0px 0px rgba(0, 0, 0, 0.35);
-      box-shadow: inset 0px 10px 0px 0px rgba(0, 0, 0, 0.35);
+      -webkit-box-shadow: inset 0px 10px 1px 0px rgba(0, 0, 0, 0.35);
+      -moz-box-shadow: inset 0px 10px 1px 0px rgba(0, 0, 0, 0.35);
+      box-shadow: inset 0px 10px 1px 0px rgba(0, 0, 0, 0.35);
       opacity: 0.7;
 
       &:first-child {

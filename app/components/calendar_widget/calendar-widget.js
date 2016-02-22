@@ -1,8 +1,7 @@
 const React = require('react');
 const moment = require('moment');
 const _ = require('underscore');
-
-const maxTitleLength = 32;
+const Clock = require('../clock_widget/clock-widget');
 
 import {apiHost} from '../../config/globals';
 
@@ -57,19 +56,13 @@ const CalendarWidget = React.createClass({
     });
   },
 
-  truncatedTitle: function(title) {
-    return (title.length > maxTitleLength) ?
-      (title.substring(0, maxTitleLength - 3) + '...') :
-      title;
-  },
-
   renderEvent: function(eventData) {
     return (
       <div className="event">
         <div className="timestamp">
           <span>{moment(eventData.start).fromNow()}</span>
         </div>
-        <div className="title"> {this.truncatedTitle(eventData.title)} </div>
+        <div className="title"> {eventData.title} </div>
         <div className="duration"> for
           <span className="humanized-duration">
             {' ' +  moment.duration(moment(eventData.end) - moment(eventData.start)).humanize() + '.'}
@@ -85,9 +78,12 @@ const CalendarWidget = React.createClass({
 
   render: function() {
     return (
-      <div className="calendar" data-uuid={this.props.uuid}>
-        <div className = "events">
-          {this.renderEvents()}
+      <div className="clock-and-cal">
+        <Clock title="clock"/>
+        <div className="calendar" data-uuid={this.props.uuid}>
+          <div className = "events">
+            {this.renderEvents()}
+          </div>
         </div>
       </div>
     );

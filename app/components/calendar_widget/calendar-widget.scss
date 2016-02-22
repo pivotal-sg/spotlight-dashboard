@@ -1,26 +1,30 @@
 $dark-color: #58534C;
 $light-color: #F1D4A9;
 
-.calendar {
+.clock-and-cal {
   height: 100%;
-  width: 100%;
-  padding-top: 2vmax;
   background-color: $light-color;
   color: $dark-color;
+  .clock {
+    height: 10vmax;
+  }
+}
+.calendar {
+  width: 100%;
+  padding-top: 2vmax;
 
   .events {
-    padding: 0 2vmax;
+    padding: 1em 2vmax;
     width: 100%;
-    position: absolute;
-    bottom: 2vmax;
 
     .event {
       padding-bottom: 50px;
       .timestamp {
          color: $light-color;
-         font-size: 1.1vmax;
+         font-size: 1.0vmax;
          text-transform: uppercase;
-         letter-spacing: 0.07vmax;
+         letter-spacing: 0.1em;
+         font-weight: 700;
          span {
            background-color: $dark-color;
            padding: 2px 16px;
@@ -33,6 +37,11 @@ $light-color: #F1D4A9;
         padding-top: 20px;
         font-size: 2.5vmax;
         line-height: 2.8vmax;
+        height: 7vmax;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
       }
       .duration {
         font-size: 15px;

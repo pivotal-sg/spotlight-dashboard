@@ -11,7 +11,7 @@ if (isDevelopment) {
   new WebpackDevServer(webpack(config), {
     contentBase: static_path,
     hot: true
-  }).listen(9000, 'localhost', function (err, result) {
+  }).listen(9000, '0.0.0.0', function (err, result) {
     if (err) { console.log(err) }
     console.log('Listening at localhost:9000 in DEV');
   });
