@@ -1,0 +1,32 @@
+.comic {
+  height: 100%;
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+  background-color: white;
+  .comic-title{
+    font-weight: bold;
+    padding-top: 10px 20px;
+    font-size: 1vmax;
+    line-height: 1.5vmax;
+    height: 3vmax;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .comic-img-container {
+    width: 100%;
+    height: 90%;
+    padding: 0 20px;
+    .comic-img{
+      height:100%;
+      width: 100%;
+      background: no-repeat center center;
+      -webkit-background-size: contain;
+      -moz-background-size: contain;
+      -o-background-size: contain;
+      background-size: contain;
+    }
+  }
+}
