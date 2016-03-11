@@ -3,6 +3,7 @@ const CiWidgetContainer = require('../ci_widget_container/ci-widget-container');
 const ClockWidget = require('../clock_widget/clock-widget');
 const CalendarWidget = require('../calendar_widget/calendar-widget');
 const ComicWidget = require('../comic_widget/comic-widget');
+const UrlWidget = require('../url_widget/url-widget');
 
 require('./widget.scss');
 
@@ -52,7 +53,8 @@ const Widget = React.createClass({
       'ci_widget': CiWidgetContainer,
       'clock_widget': ClockWidget,
       'gcal_widget': CalendarWidget,
-      'comic_widget': ComicWidget
+      'comic_widget': ComicWidget,
+      'url_widget': UrlWidget
     };
     const WidgetType = widgetCategory[this.props.category];
     return <WidgetType {...this.props}/>;
