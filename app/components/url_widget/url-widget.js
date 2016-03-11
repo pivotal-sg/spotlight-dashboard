@@ -23,7 +23,7 @@ const UrlWidget = React.createClass({
 
   updateUrl: function() {
     const component = this;
-    const apiUrl = apiHost + '/api/url';
+    const apiUrl = apiHost + '/api/url/' + this.props.uuid ;
     const options = {
       method: 'GET',
       headers: {
