@@ -1,0 +1,25 @@
+CACHE MANIFEST
+# 2016-03-29:v1
+
+# Explicitly cached 'master entries'.
+CACHE:
+/favicon.ico
+bundle.js
+bundle.js.map
+images/*
+index.html
+style.css
+style.css.map
+http://cdnjs.cloudflare.com/*
+http://fonts.googleapis.com/*
+http://code.jquery.com/*
+http://fonts.gstatic.com/*
+http://www.soundjay.com/*
+
+# Resources that require the user to be online.
+NETWORK:
+*
+
+# 404.html will be served if index.html is inaccessible
+FALLBACK:
+/index.html /404.html
