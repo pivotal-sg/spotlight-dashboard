@@ -6,10 +6,10 @@ CACHE:
 /bundle.js
 /index.html
 /style.css
-/vendor/fonts/MTP_ySUJH_bn48VBG8sNShampu5_7CjHW5spxoeN3Vs.woff2
-/vendor/fonts/cJZKeOuBrn4kERxqtaUH3ZBw1xU1rKptJj_0jans920.woff2
-/vendor/fonts/k3k702ZOKiLJc3WVjuplzBampu5_7CjHW5spxoeN3Vs.woff2
-/vendor/fonts/material-icons.woff2
+/vendor/fonts/MTP_ySUJH_bn48VBG8sNSonF5uFdDttMLvmWuJdhhgs.ttf
+/vendor/fonts/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf
+/vendor/fonts/k3k702ZOKiLJc3WVjuplzInF5uFdDttMLvmWuJdhhgs.ttf
+/vendor/fonts/material-icons.ttf
 /vendor/stylesheets/fonts.css
 /vendor/stylesheets/material-icons.css
 http://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css
