@@ -4,12 +4,12 @@ CACHE MANIFEST
 # Explicitly cached 'master entries'.
 CACHE:
 /favicon.ico
-bundle.js
-bundle.js.map
-images/*
-index.html
-style.css
-style.css.map
+/bundle.js
+/bundle.js.map
+/images/*
+/index.html
+/style.css
+/style.css.map
 http://cdnjs.cloudflare.com/*
 http://fonts.googleapis.com/*
 http://code.jquery.com/*
