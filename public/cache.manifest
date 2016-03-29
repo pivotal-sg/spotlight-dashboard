@@ -3,23 +3,21 @@ CACHE MANIFEST
 
 # Explicitly cached 'master entries'.
 CACHE:
-/favicon.ico
 /bundle.js
-/bundle.js.map
-/images/*
 /index.html
 /style.css
-/style.css.map
-http://cdnjs.cloudflare.com/*
-http://fonts.googleapis.com/*
-http://code.jquery.com/*
-http://fonts.gstatic.com/*
-http://www.soundjay.com/*
+/vendor/fonts/MTP_ySUJH_bn48VBG8sNShampu5_7CjHW5spxoeN3Vs.woff2
+/vendor/fonts/cJZKeOuBrn4kERxqtaUH3ZBw1xU1rKptJj_0jans920.woff2
+/vendor/fonts/k3k702ZOKiLJc3WVjuplzBampu5_7CjHW5spxoeN3Vs.woff2
+/vendor/fonts/material-icons.woff2
+/vendor/stylesheets/fonts.css
+/vendor/stylesheets/material-icons.css
+http://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css
+http://code.jquery.com/jquery-2.1.1.min.js
+http://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js
+http://www.soundjay.com/mechanical/sounds/clong-1.mp3
 
 # Resources that require the user to be online.
 NETWORK:
 *
 
-# 404.html will be served if index.html is inaccessible
-FALLBACK:
-/index.html /404.html
