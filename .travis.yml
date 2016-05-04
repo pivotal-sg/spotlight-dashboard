@@ -3,7 +3,6 @@ node_js:
   - "5.4.0"
 cache:
   directories:
-  - node_modules
   - .chrome
 before_install:
   - ./scripts/install_chromium.sh
