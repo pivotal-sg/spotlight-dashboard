@@ -41,23 +41,21 @@ REPOSITORY                       TAG                 IMAGE ID            CREATED
 spotlight-dashboard              latest              ba3dcc9b42b1        16 seconds ago      954.3 MB
 ```
 
-3. Login to your Docker account (one time exercise) with `docker login`:
+## Contributors
 
-  ```
-➜  spotlight git:(docker) ✗ docker login
-Username (miccheng):
-WARNING: login credentials saved in /Users/miccheng/.docker/config.json
-Login Succeeded
-```
+- [Divya Bhargov](https://github.com/divyabhargov)
+- Erika Buenaventura
+- [Gabe Hollombe](https://github.com/gabehollombe)
+- [Michael Cheng](https://github.com/miccheng)
+- [Rahul Rajeev](https://github.com/rhlrjv)
 
-4. Tag the image
+## License
 
-  ```
-docker tag ba3dcc9b42b1 neosgspotlight/spotlight-dashboard:latest
-```
+**The MIT License (MIT)**
+Copyright (c) 2015 Pivotal Labs Singapore
 
-5. Push to Docker Hub
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-  ```
-docker push neosgspotlight/spotlight-dashboard
-```
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
