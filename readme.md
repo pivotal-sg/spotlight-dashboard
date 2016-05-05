@@ -1,6 +1,8 @@
 # Spotlight Dashboard
 **Frontend app for the Spotlight dashboard**
 
+[![Build Status](https://travis-ci.org/pivotal-sg/spotlight-dashboard.svg?branch=develop)](https://travis-ci.org/pivotal-sg/spotlight-dashboard)
+
 ## Setup instruction
 
  - Make sure you are using Node v5.4.0
