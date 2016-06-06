@@ -35,3 +35,5 @@ node_modules/
 npm-debug.log
 
 refresh_all_screens.sh
+
+ci/credentials.yml

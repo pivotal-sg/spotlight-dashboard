@@ -1,0 +1,28 @@
+FROM pivotalsingapore/concourse-base-rails:latest
+
+USER root
+
+RUN apt-get update -qqy && \
+    apt-get -qqy --no-install-recommends install \
+        unzip \
+        libgconf-2-4 \
+        libxss1 \
+        npm && \
+    apt-get clean
+
+RUN ln -s /usr/bin/nodejs /usr/bin/node
+
+RUN mkdir -p /code
+WORKDIR /code
+
+ADD package.json /code/package.json
+RUN npm install
+
+COPY  . /code
+
+ENV CHROME_BIN=/root/.chrome/chromium/chrome-linux/chrome
+RUN ./scripts/install_chromium.sh
+RUN chmod 4755 /root/.chrome/chromium/chrome-linux/chrome_sandbox
+RUN chown root:root /root/.chrome/chromium/chrome-linux/chrome_sandbox
+
+CMD sh ./run-tests-in-docker.sh

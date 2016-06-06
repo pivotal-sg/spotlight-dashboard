@@ -1,0 +1,68 @@
+---
+resources:
+  - name: spotlight-dashboard-git
+    type: git
+    source:
+      uri: git@github.com:pivotal-sg/spotlight-dashboard.git
+      branch: master
+      private_key: {{git-private-key}}
+
+  - name: spotlight-dashboard-test-image
+    type: docker-image
+    source:
+      repository: pivotalsingapore/spotlight-dashboard-tests
+      email: {{docker-email}}
+      username: {{docker-username}}
+      password: {{docker-password}}
+
+  - name: spotlight-dashboard-deploy-image
+    type: docker-image
+    source:
+      repository: pivotalsingapore/spotlight-dashboard
+      email: {{docker-email}}
+      username: {{docker-username}}
+      password: {{docker-password}}
+
+jobs:
+  - name: build-test-image
+    public: false
+    serial: true
+    plan:
+      - get: spotlight-dashboard-git
+        trigger: true
+      - put: spotlight-dashboard-test-image
+        params:
+          build: spotlight-dashboard-git/
+          dockerfile: spotlight-dashboard-git/Dockerfile.tests
+          cache: true
+
+  - name: tests
+    public: true
+    plan:
+      - get: spotlight-dashboard-git
+        passed: [build-test-image]
+      - get: spotlight-dashboard-test-image
+        passed: [build-test-image]
+        trigger: true
+      - task: unit-rb
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: pivotalsingapore/spotlight-dashboard-tests
+          run:
+            path: npm
+            args: [test]
+
+  - name: build-deployment-image
+    public: false
+    plan:
+      - get: spotlight-dashboard-git
+        trigger: true
+        passed: [tests]
+      - put: spotlight-dashboard-deploy-image
+        params:
+          build: spotlight-dashboard-git/
+          dockerfile: spotlight-dashboard-git/Dockerfile
+          cache: true
