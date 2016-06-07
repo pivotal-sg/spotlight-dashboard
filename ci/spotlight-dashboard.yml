@@ -44,7 +44,7 @@ jobs:
       - get: spotlight-dashboard-test-image
         passed: [build-test-image]
         trigger: true
-      - task: unit-rb
+      - task: unit-js
         config:
           platform: linux
           image_resource:
@@ -52,8 +52,9 @@ jobs:
             source:
               repository: pivotalsingapore/spotlight-dashboard-tests
           run:
-            path: npm
-            args: [test]
+            path: /bin/bash
+            args: ["-lc", "/home/ubuntu/run-tests-in-docker.sh"]
+
 
   - name: build-deployment-image
     public: false
