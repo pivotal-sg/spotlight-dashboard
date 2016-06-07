@@ -2,4 +2,4 @@
 
 sudo /etc/init.d/xvfb start && sleep 2
 
-npm test
+/bin/bash -lc "npm test"
