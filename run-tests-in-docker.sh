@@ -1,3 +1,5 @@
 #!/bin/bash
 
-xvfb-run npm test
+sudo /etc/init.d/xvfb start && sleep 2
+
+npm test

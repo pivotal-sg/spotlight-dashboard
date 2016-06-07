@@ -1,28 +1,29 @@
-FROM pivotalsingapore/concourse-base-rails:latest
+FROM pivotalsingapore/build-image
 
-USER root
+USER ubuntu
 
-RUN apt-get update -qqy && \
-    apt-get -qqy --no-install-recommends install \
-        unzip \
-        libgconf-2-4 \
-        libxss1 \
-        npm && \
-    apt-get clean
+RUN sudo apt-get update -qqy && \
+    sudo apt-get -qqy --no-install-recommends install \
+        ca-certificates \
+        xvfb && \
+    sudo apt-get clean
 
-RUN ln -s /usr/bin/nodejs /usr/bin/node
+ENV SCREEN_WIDTH 1360
+ENV SCREEN_HEIGHT 1020
+ENV SCREEN_DEPTH 24
+ENV DISPLAY :99.0
+ENV CHROME_BIN /usr/bin/google-chrome
 
-RUN mkdir -p /code
-WORKDIR /code
+RUN mkdir -p /home/ubuntu/code
+WORKDIR /home/ubuntu/code
 
-ADD package.json /code/package.json
-RUN npm install
+ADD package.json /home/ubuntu/code/package.json
 
-COPY  . /code
+RUN ["/bin/bash", "-lc", "npm install"]
 
-ENV CHROME_BIN=/root/.chrome/chromium/chrome-linux/chrome
-RUN ./scripts/install_chromium.sh
-RUN chmod 4755 /root/.chrome/chromium/chrome-linux/chrome_sandbox
-RUN chown root:root /root/.chrome/chromium/chrome-linux/chrome_sandbox
+ADD scripts/xvfb.sh /etc/init.d/xvfb
+RUN sudo chmod +x /etc/init.d/xvfb
 
-CMD sh ./run-tests-in-docker.sh
+COPY  . /home/ubuntu/code
+
+CMD ["/bin/bash", "-lc", "sh ./run-tests-in-docker.sh"]
