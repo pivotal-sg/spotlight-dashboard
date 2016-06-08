@@ -21,6 +21,10 @@ ADD package.json /home/ubuntu/code/package.json
 
 RUN ["/bin/bash", "-lc", "npm install"]
 
+RUN curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash - && \
+    sudo apt-get install -y nodejs && \
+    sudo apt-get clean
+
 ADD scripts/xvfb.sh /etc/init.d/xvfb
 RUN sudo chmod +x /etc/init.d/xvfb
 
