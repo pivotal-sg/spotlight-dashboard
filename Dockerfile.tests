@@ -1,12 +1,12 @@
 FROM pivotalsingapore/build-image
 
-USER ubuntu
+USER root
 
-RUN sudo apt-get update -qqy && \
-    sudo apt-get -qqy --no-install-recommends install \
+RUN apt-get update -qqy && \
+    apt-get -qqy --no-install-recommends install \
         ca-certificates \
         xvfb && \
-    sudo apt-get clean
+    apt-get clean
 
 ENV SCREEN_WIDTH 1360
 ENV SCREEN_HEIGHT 1020
@@ -14,22 +14,22 @@ ENV SCREEN_DEPTH 24
 ENV DISPLAY :99.0
 ENV CHROME_BIN /usr/bin/google-chrome
 
-RUN mkdir -p /home/ubuntu/code
-WORKDIR /home/ubuntu/code
+RUN mkdir -p /code
+WORKDIR /code
 
-ADD package.json /home/ubuntu/code/package.json
+ADD package.json /code/package.json
 
-RUN ["/bin/bash", "-lc", "npm install"]
+RUN curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
+    apt-get install -y nodejs && \
+    apt-get clean
 
-RUN curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash - && \
-    sudo apt-get install -y nodejs && \
-    sudo apt-get clean
+RUN npm install
 
 ADD scripts/xvfb.sh /etc/init.d/xvfb
-RUN sudo chmod +x /etc/init.d/xvfb
+RUN chmod +x /etc/init.d/xvfb
 
-COPY  . /home/ubuntu/code
+COPY  . /code
 
-RUN sudo chmod +x /home/ubuntu/code/run-tests-in-docker.sh
+RUN chmod +x /code/run-tests-in-docker.sh
 
-CMD ["/bin/bash", "-lc", "sh ./run-tests-in-docker.sh"]
+CMD ./run-tests-in-docker.sh

@@ -52,7 +52,7 @@ jobs:
             source:
               repository: pivotalsingapore/spotlight-dashboard-tests
           run:
-            path: /home/ubuntu/code/run-tests-in-docker.sh
+            path: /code/run-tests-in-docker.sh
 
 
   - name: build-deployment-image
