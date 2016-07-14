@@ -47,7 +47,7 @@ if [[ "$EXISTING_VERSION" != "$CHROMIUM_VERSION" ]]; then
   while [[ $STATUS == 404 && $NEXT -ge 0 ]]
   do
     echo Fetch Chromium version: ${NEXT}
-    STATUS=$(curl "https://storage.googleapis.com/chromium-browser-snapshots/Linux_x64/${NEXT}/chrome-linux.zip" -s -w %{http_code} --create-dirs -o $FILE) || true
+    STATUS=$(curl "http://commondatastorage.googleapis.com/chromium-browser-snapshots/index.html?prefix=Linux_x64/${NEXT}/chrome-linux.zip" -s -w %{http_code} --create-dirs -o $FILE) || true
     NEXT=$[$NEXT-1]
   done
 
