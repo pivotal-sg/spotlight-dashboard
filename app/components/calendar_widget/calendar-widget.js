@@ -56,11 +56,23 @@ const CalendarWidget = React.createClass({
     });
   },
 
+  timeTitle: function(startTime) {
+    if(startTime.hour() === 0) { //starts midnight (all day events)
+      formattedStartDate = startTime.format('DD-MM-YYYY');
+      today = moment().format('DD-MM-YYYY')
+      tomorrow = moment().add(1, 'day').format('DD-MM-YYYY')
+
+      if(formattedStartDate === today) return 'Today';
+      if(formattedStartDate === tomorrow) return 'Tomorrow';
+    }
+    return  startTime.fromNow();
+  },
+
   renderEvent: function(eventData) {
     return (
       <div className="event">
         <div className="timestamp">
-          <span>{moment(eventData.start).fromNow()}</span>
+          <span>{this.timeTitle(moment(eventData.start))}</span>
         </div>
         <div className="title"> {eventData.title} </div>
         <div className="duration"> for
