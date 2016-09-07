@@ -36,6 +36,37 @@ describe('CiWidgetContainer', function() {
     expect(containerNode.dataset.uuid).to.equal(widgetProps.uuid);
   });
 
+  describe('refreshes the build', function() {
+    const fakeCIStatusResponse = { foo: 1 };
+    const onBuildUpdateSpy = sinon.spy();
+
+    beforeEach( function() {
+      const res = new window.Response(JSON.stringify(fakeCIStatusResponse), {
+        status: 200,
+        headers: {
+          'Content-type': 'application/json'
+        }
+      });
+
+      fakeFetch = sinon.stub(window, 'fetch');
+      window.fetch.returns(Promise.resolve(res));
+
+      component = TestUtils.renderIntoDocument( <CiWidgetContainer { ...widgetProps } onBuildUpdate={onBuildUpdateSpy} />);
+    });
+
+    afterEach(function() {
+      window.fetch.restore();
+    });
+
+    it("updates itself with the CI response info", function(done) {
+      setTimeout(function(){
+        expect(onBuildUpdateSpy.calledWith(fakeCIStatusResponse)).to.equal(true)
+        done();
+      });
+    });
+  });
+
+
   describe('build information', function() {
     let fakeOnBuildUpdate;
     const res = new window.Response('{"hello":"world"}', {

@@ -31,15 +31,15 @@ describe('CalendarWidget', function() {
     }
   ];
 
-  const res = new window.Response(JSON.stringify({events: testEvents}), {
-    status: 200,
-    headers: {
-      'Content-type': 'application/json'
-    }
-  });
-
-  beforeEach( function() {
+  beforeEach(function() {
     component = ReactTestUtils.renderIntoDocument( <CalendarWidget {...widgetProps}/>);
+
+    const res = new window.Response(JSON.stringify({events: testEvents}), {
+      status: 200,
+      headers: {
+        'Content-type': 'application/json'
+      }
+    });
     fakeFetch = sinon.stub(window, 'fetch');
     window.fetch.returns(Promise.resolve(res));
   });
@@ -48,11 +48,21 @@ describe('CalendarWidget', function() {
     window.fetch.restore();
   });
 
-  it('renders the events', function(done) {
-    const body = component.getDomNode;
-    done();
-    expect(body).to.include(testEvents[0]['title']);
-    expect(body).to.include(testEvents[1]['title']);
+  describe('renders the calendar widget', function() {
+    beforeEach(function() {
+      component = TestUtils.renderIntoDocument( <CalendarWidget {...widgetProps}/>);
+    });
+
+    it('renders the events', function(done) {
+      setTimeout(function(){
+        const body = component.getDOMNode().innerHTML;
+
+        expect(body).to.include(testEvents[0]['title']);
+        expect(body).to.include(testEvents[1]['title']);
+
+        done();
+      });
+    });
   });
 
   describe('componentDidMount', function() {
