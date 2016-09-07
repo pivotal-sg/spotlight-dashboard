@@ -2,6 +2,7 @@ const React = require('react');
 const CiWidgetContainer = require('../ci_widget_container/ci-widget-container');
 const ClockWidget = require('../clock_widget/clock-widget');
 const CalendarWidget = require('../calendar_widget/calendar-widget');
+const CalendarResourceWidget = require('../calendar_resource_widget/calendar-resource-widget');
 const ComicWidget = require('../comic_widget/comic-widget');
 const UrlWidget = require('../url_widget/url-widget');
 
@@ -50,6 +51,7 @@ const Widget = React.createClass({
       'ci_widget': CiWidgetContainer,
       'clock_widget': ClockWidget,
       'gcal_widget': CalendarWidget,
+      'gcal_resource_widget': CalendarResourceWidget,
       'comic_widget': ComicWidget,
       'url_widget': UrlWidget
     };

@@ -1,0 +1,35 @@
+$dark-color: #58534C;
+$light-color: #F1D4A9;
+
+.clock-and-cal {
+  height: 100%;
+  background-color: $light-color;
+  color: $dark-color;
+  .clock {
+    height: 10vmax;
+  }
+}
+.calendar-resource {
+  width: 100%;
+  height: 100%;
+  padding-top: 2vmax;
+
+  &.booked {
+    border: 5px solid red;
+  }
+
+  &.available {
+    background-color: green;
+  }
+
+  .title {
+    padding-top: 20px;
+    font-size: 2.5vmax;
+    line-height: 2.8vmax;
+    height: 7vmax;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}
