@@ -28,7 +28,6 @@ const CalendarResourceWidget = React.createClass({
   },
 
   componentDidMount: function() {
-    console.log('MOUNTED --------------');
     this.updateAvailability();
     const updateTimerId = setInterval(this.updateAvailability, this.props.refreshInterval);
     this.setState({timerId: updateTimerId});
@@ -57,7 +56,6 @@ const CalendarResourceWidget = React.createClass({
         next_booking_at: json.next_booking_at,
         next_available_at: json.next_available_at
       });
-      console.log('STATE UPDATED --------------');
     });
   },
 
