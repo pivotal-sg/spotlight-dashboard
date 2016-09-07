@@ -76,23 +76,24 @@ const CalendarResourceWidget = React.createClass({
     var nextText, timeText;
 
     if (this.state.available) {
-      nextText = 'Next booking ';
       timeText = moment(this.state.next_booking_at).fromNow();
     }
     else {
-      nextText = 'Next available '
       timeText = moment(this.state.next_available_at).fromNow();
     }
 
-    return `${nextText} ${moment(this.state.next_booking_at).fromNow()}`;
+    return timeText.replace('in ', '').replace(' ago', '');
   },
 
   render: function() {
     let resourceAvailabilityClassName = this.state.available ? 'available' : 'booked';
     return (
         <div className={'calendar-resource ' + resourceAvailabilityClassName} data-uuid={this.props.uuid}>
-          <div className="title"> {this.props.title} is { this.availability() } </div>
-          <div className="nextText"> { this.nextText() } </div>
+          <div className="title"> {this.props.title} </div>
+          <div className="sign"> { this.availability() } </div>
+          <div>
+            <span className="nextText">for</span> <span className="nextTime">{ this.nextText() }</span>
+          </div>
       </div>
     );
   }
