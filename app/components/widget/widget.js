@@ -52,6 +52,7 @@ const Widget = React.createClass({
   renderWidget: function() {
     const widgetCategory = {
       'ci_widget': CiWidgetContainer,
+      'ci_concourse_widget': CiWidgetContainer,
       'clock_widget': ClockWidget,
       'gcal_widget': CalendarWidget,
       'gcal_resource_widget': CalendarResourceWidget,
