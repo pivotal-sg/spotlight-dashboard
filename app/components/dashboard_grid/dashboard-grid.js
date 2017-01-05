@@ -80,7 +80,7 @@ const DashboardGrid = React.createClass({
     const component = this;
     return _.map(this.props.widgets, function(widget) {
       return (
-        <div key={widget.uuid} _grid={widget.layout}>
+        <div key={widget.uuid} data-grid={widget.layout}>
           <Widget {...widget} refreshDashboard={component.props.refreshDashboard}/>
         </div>
       );

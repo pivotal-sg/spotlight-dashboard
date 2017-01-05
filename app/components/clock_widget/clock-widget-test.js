@@ -1,5 +1,5 @@
 const React = require('react');
-const TestUtils = require('react/lib/ReactTestUtils');
+import ReactTestUtils from 'react-addons-test-utils';
 const moment = require('moment');
 
 const chai = require('chai');
@@ -16,7 +16,7 @@ describe('ClockWidget', function() {
 
   beforeEach(function() {
     clock = sinon.useFakeTimers();
-    component = TestUtils.renderIntoDocument(<ClockWidget title="Singapore Clock"/>);
+    component = ReactTestUtils .renderIntoDocument(<ClockWidget title="Singapore Clock"/>);
   });
 
   afterEach(function() {
@@ -24,19 +24,19 @@ describe('ClockWidget', function() {
   });
 
   it('renders the time', function() {
-    const time = TestUtils.findRenderedDOMComponentWithClass(component, 'time');
+    const time = ReactTestUtils .findRenderedDOMComponentWithClass(component, 'time');
     expect(time).to.exist;
     expect(time.textContent).to.contain(moment().format('H:mm:ss'));
   });
 
   it('renders the date', function() {
-    const date = TestUtils.findRenderedDOMComponentWithClass(component, 'date');
+    const date = ReactTestUtils .findRenderedDOMComponentWithClass(component, 'date');
     expect(date).to.exist;
     expect(date.textContent).to.contain(moment().format('dddd, DD MMM'));
   });
 
   it('updates the time', function() {
-    const time = TestUtils.findRenderedDOMComponentWithClass(component, 'time');
+    const time = ReactTestUtils .findRenderedDOMComponentWithClass(component, 'time');
     expect(time.textContent).to.contain(moment().format('H:mm:ss'));
     clock.tick(50000);
     expect(time.textContent).to.contain(moment().format('H:mm:ss'));

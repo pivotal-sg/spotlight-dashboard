@@ -14,9 +14,9 @@ const Dashboard = React.createClass({
     return (
       <div>
         <ReactGridLayout className="layout" cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}} rowHeight={30} isResizable={true}>
-          <div key={1} _grid={{x: 0, y: 0, w: 1, h: 2}}>1</div>
-          <div key={2} _grid={{x: 1, y: 0, w: 1, h: 2}}>2</div>
-          <div key={3} _grid={{x: 2, y: 0, w: 1, h: 2}}>3</div>
+          <div key={1} data-grid={{x: 0, y: 0, w: 1, h: 2}}>1</div>
+          <div key={2} data-grid={{x: 1, y: 0, w: 1, h: 2}}>2</div>
+          <div key={3} data-grid={{x: 2, y: 0, w: 1, h: 2}}>3</div>
         </ReactGridLayout>
       </div>
     );

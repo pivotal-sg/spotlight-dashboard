@@ -1,9 +1,9 @@
 const React = require('react');
-const TestUtils = require('react/lib/ReactTestUtils');
-
+import ReactTestUtils from 'react-addons-test-utils'
 const chai = require('chai');
 const expect = require('chai').expect;
 const sinonChai = require('sinon-chai');
+const moment = require('moment');
 
 chai.use(sinonChai);
 
@@ -11,6 +11,7 @@ const CiWidgetContainer = require('./ci-widget-container');
 const CiWidget = require('../ci_widget/ci-widget');
 
 describe('CiWidgetContainer', function() {
+  const requiredProps = { refreshDashboard: () => {} };
   let fakeTimerTick;
   let fakeFetch;
   let component;
@@ -22,16 +23,16 @@ describe('CiWidgetContainer', function() {
   };
 
   beforeEach(function() {
-    component = TestUtils.renderIntoDocument(<CiWidgetContainer {...widgetProps}/>);
+    component = ReactTestUtils .renderIntoDocument(<CiWidgetContainer {...widgetProps} {...requiredProps}/>);
   });
 
   it('passes its title to the CI widget component', function() {
-    const ciWidget = TestUtils.findRenderedComponentWithType(component, CiWidget);
+    const ciWidget = ReactTestUtils .findRenderedComponentWithType(component, CiWidget);
     expect(ciWidget.props.title).to.equal(widgetProps.title);
   });
 
   it('adds uuid as a data-element on the parent', function() {
-    const containerNode = TestUtils.findRenderedDOMComponentWithClass(component, 'ci-widget');
+    const containerNode = ReactTestUtils .findRenderedDOMComponentWithClass(component, 'ci-widget');
     expect(containerNode.dataset.uuid).to.equal(widgetProps.uuid);
   });
 
@@ -47,8 +48,8 @@ describe('CiWidgetContainer', function() {
     beforeEach( function() {
       fakeOnBuildUpdate = sinon.spy();
       fakeTimerTick = sinon.spy();
-      component = TestUtils.renderIntoDocument(
-        <CiWidgetContainer {...widgetProps}
+      component = ReactTestUtils .renderIntoDocument(
+        <CiWidgetContainer {...widgetProps} {...requiredProps}
         onBuildUpdate={fakeOnBuildUpdate}
         timerTick={fakeTimerTick}/>
       );
@@ -122,8 +123,8 @@ describe('CiWidgetContainer', function() {
 
     it('causes the timerTick to be called at interval', function() {
       const refreshRate = 20000;
-      component = TestUtils.renderIntoDocument(
-        <CiWidgetContainer {...widgetProps} timerTick={fakeTimerTick} refreshInterval={refreshRate}/>
+      component = ReactTestUtils .renderIntoDocument(
+        <CiWidgetContainer {...widgetProps} {...requiredProps} timerTick={fakeTimerTick} refreshInterval={refreshRate}/>
       );
 
       expect(fakeTimerTick.callCount).to.equal(1);
@@ -140,7 +141,7 @@ describe('CiWidgetContainer', function() {
     const expectedProps = {status: 'status', committer: 'committer name', lastBuildTime: 'last build', buildHistory: [{foo: 'bar'}]};
     component.setState(expectedProps);
 
-    const ciWidget = TestUtils.findRenderedComponentWithType(component, CiWidget);
+    const ciWidget = ReactTestUtils .findRenderedComponentWithType(component, CiWidget);
     expect(ciWidget.props).to.contain(expectedProps);
   });
 });

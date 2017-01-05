@@ -70,7 +70,7 @@ const CalendarWidget = React.createClass({
 
   renderEvent: function(eventData) {
     return (
-      <div className="event">
+      <div className="event" key={eventData.title}>
         <div className="timestamp">
           <span>{this.timeTitle(moment(eventData.start))}</span>
         </div>

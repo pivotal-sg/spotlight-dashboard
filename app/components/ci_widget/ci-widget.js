@@ -36,7 +36,7 @@ const CiWidget = React.createClass({
     return _.map(_.range(maxBuildHistory), function(index) {
       const build = buildHistory ? buildHistory[maxBuildHistory - (index + 1)] : null;
       const buildStatus = build ? build.state : 'unknown';
-      return ( <div className={'build-block ' + buildStatus }></div>);
+      return ( <div className={'build-block ' + buildStatus } key={"build-block" + index}></div>);
     });
   },
 

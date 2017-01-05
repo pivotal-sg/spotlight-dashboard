@@ -1,6 +1,5 @@
 const React = require('react');
-const TestUtils = require('react/lib/ReactTestUtils');
-const expect = require('chai').expect;
+import ReactTestUtils from 'react-addons-test-utils'const expect = require('chai').expect;
 const SpotlightWindow = require('./spotlight-window');
 const DashboardGrid = require('../dashboard_grid/dashboard-grid');
 
@@ -11,19 +10,19 @@ describe('SpotlightWindow', function() {
   };
 
   it('renders dashboard grid', function() {
-    const renderer = TestUtils.createRenderer();
+    const renderer = ReactTestUtils .createRenderer();
     renderer.render( <SpotlightWindow {...testProps}/>);
     const result = renderer.getRenderOutput();
 
     const dashboard = result.props.children;
-    expect(TestUtils.isElementOfType(dashboard, DashboardGrid)).to.equal(true);
+    expect(ReactTestUtils.isElementOfType(dashboard, DashboardGrid)).to.equal(true);
     expect(dashboard.props.foo).to.equal('bar');
     expect(dashboard.props.onSave).to.equal('fakeOnSave');
   });
 
   describe('switchToEditMode', function() {
     it('changes state', function() {
-      const component = TestUtils.renderIntoDocument(<SpotlightWindow {...testProps}/>);
+      const component = ReactTestUtils .renderIntoDocument(<SpotlightWindow {...testProps}/>);
       expect(component.state.editMode).to.equal(false);
       component.switchToEditMode();
       expect(component.state.editMode).to.equal(true);
@@ -32,7 +31,7 @@ describe('SpotlightWindow', function() {
 
   describe('onSave', function() {
     it('switches back to vies only mode', function() {
-      const component = TestUtils.renderIntoDocument(<SpotlightWindow {...testProps}/>);
+      const component = ReactTestUtils .renderIntoDocument(<SpotlightWindow {...testProps}/>);
       component.setState({editMode: true});
       component.defaultOnSave();
       expect(component.state.editMode).to.equal(false);
@@ -53,7 +52,7 @@ describe('SpotlightWindow', function() {
     );
 
     beforeEach(function() {
-      component = TestUtils.renderIntoDocument(<SpotlightWindow {...testProps}/>);
+      component = ReactTestUtils .renderIntoDocument(<SpotlightWindow {...testProps}/>);
       fakeFetch = sinon.stub(window, 'fetch');
       window.fetch.returns(Promise.resolve(res));
     });
@@ -77,7 +76,7 @@ describe('SpotlightWindow', function() {
     });
 
     it('passes retrieveWidgets to the dashboard', function() {
-      const dashboard = TestUtils.findRenderedComponentWithType(component, DashboardGrid);
+      const dashboard = ReactTestUtils .findRenderedComponentWithType(component, DashboardGrid);
       expect(dashboard.props.refreshDashboard).to.equal(component.retreiveWidgets);
     });
   });

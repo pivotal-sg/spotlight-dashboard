@@ -43,7 +43,7 @@ const ClockWidget = React.createClass({
   render: function() {
     return (
       <div className="clock">
-        <audio id="audio" src="http://www.soundjay.com/mechanical/sounds/clong-1.mp3" autostart="false" />
+        <audio id="audio" src="http://www.soundjay.com/mechanical/sounds/clong-1.mp3" />
         <div className="time"> {this.state.time} </div>
         <div className="date"> {this.state.date} </div>
       </div>

@@ -1,6 +1,5 @@
 const React = require('react');
-const TestUtils = require('react/lib/ReactTestUtils');
-
+import ReactTestUtils from 'react-addons-test-utils'
 const _ = require('underscore');
 
 const chai = require('chai');
@@ -13,8 +12,9 @@ const DashboardGrid = require('./dashboard-grid');
 const ReactGridLayout = require('react-grid-layout');
 const Widget = require('../widget/widget');
 
-describe('DashboardGrid', function() {
+describe('DashboardGrid', function () {
   let dashboard;
+  const requiredProps = {refreshDashboard: () => {}, onSave: () => {}, enterEditMode: () => {}};
   const testTitle = 'Concierge';
   const testUuid = '123456789';
   const testPath = '/widget_path';
@@ -44,31 +44,32 @@ describe('DashboardGrid', function() {
     }
   });
 
-  beforeEach(function() {
-    dashboard = TestUtils.renderIntoDocument(
+  beforeEach(function () {
+    dashboard = ReactTestUtils.renderIntoDocument(
       <DashboardGrid widgets={[widgetProps]}
-      dashboardId={1}
-      editMode={false}
-      onSave={fakeWindowRedirect}
-      refreshDashboard={fakeRefreshDashboard}
+                     dashboardId={1}
+                     editMode={false}
+                     onSave={fakeWindowRedirect}
+                     refreshDashboard={fakeRefreshDashboard}
+                     enterEditMode={()=>{}}
       />
     );
     fakeFetch = sinon.stub(window, 'fetch');
     window.fetch.returns(Promise.resolve(fetchResponse));
   });
 
-  afterEach(function() {
+  afterEach(function () {
     window.fetch.restore();
   });
 
-  it('renders the widget', function() {
-    const titleNode = TestUtils.findRenderedDOMComponentWithClass(dashboard, 'project-name');
+  it('renders the widget', function () {
+    const titleNode = ReactTestUtils.findRenderedDOMComponentWithClass(dashboard, 'project-name');
     expect(titleNode.textContent).to.equal(testTitle);
   });
 
 
-  it('passes all the props', function() {
-    const widgetContainer = TestUtils.findRenderedComponentWithType(dashboard, Widget);
+  it('passes all the props', function () {
+    const widgetContainer = ReactTestUtils.findRenderedComponentWithType(dashboard, Widget);
     expect(widgetContainer.props.uuid).to.equal(testUuid);
     expect(widgetContainer.props.title).to.equal(testTitle);
     expect(widgetContainer.props.layout).to.equal(testLayout);
@@ -76,54 +77,56 @@ describe('DashboardGrid', function() {
     expect(widgetContainer.props.refreshDashboard).to.equal(fakeRefreshDashboard);
   });
 
-  it('renders the widget with correct height', function() {
-    const widgetHeight = parseInt(TestUtils.findRenderedDOMComponentWithClass(dashboard, 'react-grid-item').style.height.replace('px', ''), 10);
+  it('renders the widget with correct height', function () {
+    const widgetHeight = parseInt(ReactTestUtils.findRenderedDOMComponentWithClass(dashboard, 'react-grid-item').style.height.replace('px', ''), 10);
     const delta = 15;
     expect(widgetHeight).to.be.greaterThan((rowHeight * 2) - delta);
     expect(widgetHeight).to.be.lessThan((rowHeight * 2) + delta);
   });
 
-  xit('renders the widget with correct width', function() {
-    const widgetWidth = parseInt(TestUtils.findRenderedDOMComponentWithClass(dashboard, 'react-grid-item').style.width.replace('%', ''), 10);
+  xit('renders the widget with correct width', function () {
+    const widgetWidth = parseInt(ReactTestUtils.findRenderedDOMComponentWithClass(dashboard, 'react-grid-item').style.width.replace('%', ''), 10);
     const delta = 3;
     expect(widgetWidth).to.be.greaterThan(50 - delta); // Note: 50% - 6 of 12 columns
     expect(widgetWidth).to.be.lessThan(50 + delta);
   });
 
-  describe('not in edit mode', function() {
-    beforeEach(function() {
-      dashboard = TestUtils.renderIntoDocument(<DashboardGrid widgets={[widgetProps]} dashboardId="1" editMode={false}/>);
+  describe('not in edit mode', function () {
+    beforeEach(function () {
+      dashboard = ReactTestUtils.renderIntoDocument(<DashboardGrid widgets={[widgetProps]} dashboardId={1}
+                                                                   editMode={false} {...requiredProps}/>);
     });
 
-    it('does not allow dragging', function() {
-      const reactGridLayout = TestUtils.findRenderedComponentWithType(dashboard, ReactGridLayout);
+    it('does not allow dragging', function () {
+      const reactGridLayout = ReactTestUtils.findRenderedComponentWithType(dashboard, ReactGridLayout);
       expect(reactGridLayout.props.isDraggable).to.equal(false);
     });
 
-    it('does not allow resizing', function() {
-      const reactGridLayout = TestUtils.findRenderedComponentWithType(dashboard, ReactGridLayout);
+    it('does not allow resizing', function () {
+      const reactGridLayout = ReactTestUtils.findRenderedComponentWithType(dashboard, ReactGridLayout);
       expect(reactGridLayout.props.isResizable).to.equal(false);
     });
   });
 
-  describe('in edit mode', function() {
-    beforeEach(function() {
-      dashboard = TestUtils.renderIntoDocument(<DashboardGrid widgets={[widgetProps]} dashboardId="1" editMode={true}/>);
+  describe('in edit mode', function () {
+    beforeEach(function () {
+      dashboard = ReactTestUtils.renderIntoDocument(<DashboardGrid widgets={[widgetProps]} dashboardId={1}
+                                                                   editMode={true} {...requiredProps}/>);
     });
 
-    it('allows dragging', function() {
-      const reactGridLayout = TestUtils.findRenderedComponentWithType(dashboard, ReactGridLayout);
+    it('allows dragging', function () {
+      const reactGridLayout = ReactTestUtils.findRenderedComponentWithType(dashboard, ReactGridLayout);
       expect(reactGridLayout.props.isDraggable).to.equal(true);
     });
 
-    it('allows resizing', function() {
-      const reactGridLayout = TestUtils.findRenderedComponentWithType(dashboard, ReactGridLayout);
+    it('allows resizing', function () {
+      const reactGridLayout = ReactTestUtils.findRenderedComponentWithType(dashboard, ReactGridLayout);
       expect(reactGridLayout.props.isResizable).to.equal(true);
     });
   });
 
-  describe('update layout', function() {
-    it('initialized the current layout with widget layout', function() {
+  describe('update layout', function () {
+    it('initialized the current layout with widget layout', function () {
       const expectedLayout = _.extend(testLayout, {'i': testUuid});
       const widgetLayout = dashboard.state.currentLayout[0];
       expect(widgetLayout.x).to.equal(expectedLayout.x);
@@ -134,17 +137,19 @@ describe('DashboardGrid', function() {
       expect(dashboard.state.currentLayout.length).to.equal(1);
     });
 
-    it('saves the provided layout as current layout', function() {
+    it('saves the provided layout as current layout', function () {
       const newLayout = 'new Layout';
       dashboard.updateLayout(newLayout);
       expect(dashboard.state.currentLayout).to.equal(newLayout);
     });
   });
 
-  describe('persist layout', function() {
-    const doPersist = function() { dashboard.persistLayout(); };
+  describe('persist layout', function () {
+    const doPersist = function () {
+      dashboard.persistLayout();
+    };
 
-    it('sends the current layout to the server', function(done) {
+    it('sends the current layout to the server', function (done) {
       dashboard.state.currentLayout = 'new Layout';
       doPersist();
       done();
@@ -157,7 +162,7 @@ describe('DashboardGrid', function() {
       expect(options.data()).to.equal({layout: 'new Layout'});
     });
 
-    it('calls the onSave function when layout is saved', function(done) {
+    it('calls the onSave function when layout is saved', function (done) {
       doPersist();
       done();
       expect(fakeWindowRedirect.callCount).to.be(1);

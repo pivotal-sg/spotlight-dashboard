@@ -1,5 +1,5 @@
 const React = require('react');
-const TestUtils = require('react/lib/ReactTestUtils');
+import ReactTestUtils from 'react-addons-test-utils'
 
 const chai = require('chai');
 const expect = require('chai').expect;
@@ -39,7 +39,7 @@ describe('CalendarWidget', function() {
   });
 
   beforeEach( function() {
-    component = TestUtils.renderIntoDocument( <CalendarWidget {...widgetProps}/>);
+    component = ReactTestUtils.renderIntoDocument( <CalendarWidget {...widgetProps}/>);
     fakeFetch = sinon.stub(window, 'fetch');
     window.fetch.returns(Promise.resolve(res));
   });
@@ -69,7 +69,7 @@ describe('CalendarWidget', function() {
     it('calls the server at interval', function() {
       const refreshRate = 1000;
 
-      component = TestUtils.renderIntoDocument(
+      component = ReactTestUtils.renderIntoDocument(
         <CalendarWidget {...widgetProps} refreshInterval={refreshRate}/>
       );
 

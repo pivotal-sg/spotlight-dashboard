@@ -1,5 +1,5 @@
 const React = require('react');
-const TestUtils = require('react/lib/ReactTestUtils');
+import ReactTestUtils from 'react-addons-test-utils'
 const moment = require('moment');
 const CiWidget = require('./ci-widget');
 const expect = require('chai').expect;
@@ -21,21 +21,21 @@ describe('CiWidget', function() {
   };
 
   const renderWidget = function() {
-    return TestUtils.renderIntoDocument(<CiWidget {...widgetProps()}/>);
+    return ReactTestUtils.renderIntoDocument(<CiWidget {...widgetProps()}/>);
   };
 
   it('renders the title', function() {
-    const titleNode = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'project-name');
+    const titleNode = ReactTestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'project-name');
     expect(titleNode.textContent).to.equal(widgetProps().title);
   });
 
   it('renders the time since the last build', function() {
-    const titleNode = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'last-build-at');
+    const titleNode = ReactTestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'last-build-at');
     expect(titleNode.textContent).to.equal('a few seconds ago');
   });
 
   it('renders the build status', function() {
-    expect(TestUtils.findRenderedDOMComponentWithClass(renderWidget(), widgetProps().status).tagName).to.equal('DIV');
+    expect(ReactTestUtils.findRenderedDOMComponentWithClass(renderWidget(), widgetProps().status).tagName).to.equal('DIV');
   });
 
   describe('committers name', function() {
@@ -45,7 +45,7 @@ describe('CiWidget', function() {
       });
 
       it('hides the committer', function() {
-        const committerNode = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
+        const committerNode = ReactTestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
         expect(committerNode.classList.contains('hidden')).to.be.true;
       });
     });
@@ -56,7 +56,7 @@ describe('CiWidget', function() {
       });
 
       it('hides the committer', function() {
-        const committerNode = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
+        const committerNode = ReactTestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
         expect(committerNode.classList.contains('hidden')).to.be.true;
       });
     });
@@ -67,7 +67,7 @@ describe('CiWidget', function() {
       });
 
       it('hides the committer', function() {
-        const committerNode = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
+        const committerNode = ReactTestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
         expect(committerNode.classList.contains('hidden')).to.be.true;
       });
     });
@@ -78,21 +78,21 @@ describe('CiWidget', function() {
       });
 
       it('shows the committer', function() {
-        const committerNode = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
+        const committerNode = ReactTestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
         expect(committerNode.textContent).to.equal(widgetProps().committer);
         expect(committerNode.classList.contains('hidden')).to.be.false;
       });
 
       it('replaces the + in committer names with &', function() {
         committerName = 'person1 + person 2';
-        const committerNode = TestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
+        const committerNode = ReactTestUtils.findRenderedDOMComponentWithClass(renderWidget(), 'committer');
         expect(committerNode.textContent).to.equal('person1 & person 2');
       });
     });
   });
 
   it('renders previous build status', function() {
-    const nodes = TestUtils.scryRenderedDOMComponentsWithClass(renderWidget(), 'build-block');
+    const nodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(renderWidget(), 'build-block');
     expect(nodes.length).to.equal(5);
   });
 
@@ -103,7 +103,7 @@ describe('CiWidget', function() {
       {state: 'failed'}
     ];
 
-    const nodes = TestUtils.scryRenderedDOMComponentsWithClass(renderWidget(), 'build-block');
+    const nodes = ReactTestUtils.scryRenderedDOMComponentsWithClass(renderWidget(), 'build-block');
     expect(nodes.length).to.equal(5);
     expect(nodes[0].className).to.contain('unknown');
     expect(nodes[1].className).to.contain('unknown');
