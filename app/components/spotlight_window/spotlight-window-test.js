@@ -19,12 +19,13 @@ describe('SpotlightWindow', function() {
     $.get.restore();
   });
 
+  //TODO: Add a test for the login button?
   it('renders dashboard grid', function() {
     const renderer = ReactTestUtils.createRenderer();
     renderer.render( <SpotlightWindow {...testProps}/>);
     const result = renderer.getRenderOutput();
 
-    const dashboard = result.props.children;
+    const dashboard = result.props.children[0];
     expect(ReactTestUtils.isElementOfType(dashboard, DashboardGrid)).to.equal(true);
     expect(dashboard.props.foo).to.equal('bar');
     expect(dashboard.props.onSave).to.equal('fakeOnSave');
@@ -46,6 +47,38 @@ describe('SpotlightWindow', function() {
       component.defaultOnSave();
       expect(component.state.editMode).to.equal(false);
     });
+  });
+
+  // TODO: assert api calls have token in the header
+  describe('onSuccessfulGoogleLogin', function() {
+    let component;
+    const googleUser = { getAuthResponse(){ return {id_token: "ID_TOKEN"} } };
+    const res = {authToken: 'FAKE_AUTH_TOKEN'};
+
+    beforeEach(function() {
+      component = ReactTestUtils .renderIntoDocument(<SpotlightWindow {...testProps}/>);
+      sinon.stub($, "post")
+    });
+
+    afterEach(function() {
+      $.post.restore();
+    });
+
+    it('sends over the id_token to the api', function(){
+      component.onSuccessfulGoogleLogin(googleUser);
+
+      const callArgs = $.post.args[0];
+      const url = callArgs[0];
+      expect(url).to.contain('/api/login');
+    });
+
+    it('saves the response authToken in localStorage', function () {
+      $.post.yields({auth_token: 'foo'});
+      component.onSuccessfulGoogleLogin(googleUser);
+
+      expect(window.localStorage.getItem("authToken")).to.equal('foo');
+    })
+
   });
 
   describe('retreiveWidgets', function() {

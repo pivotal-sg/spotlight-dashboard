@@ -4,6 +4,7 @@ const React = require('react');
 const $ = require('jquery');
 const DashboardGrid = require('../dashboard_grid/dashboard-grid');
 import {apiHost} from '../../config/globals';
+import GoogleLogin from 'react-google-login';
 
 const SpotlightWindow = React.createClass({
   displayName: 'Spotlight window',
@@ -26,7 +27,16 @@ const SpotlightWindow = React.createClass({
     };
   },
 
-  componentDidMount: function() {
+  onSuccessfulGoogleLogin: function(googleUser) {
+    $.post(apiHost + '/api/login',
+      {id_token: googleUser.getAuthResponse().id_token},
+      function (response) {
+        window.localStorage.setItem("authToken", response.auth_token);
+      }
+    );
+  },
+
+  componentDidMount: function () {
     this.retreiveWidgets();
   },
 
@@ -59,6 +69,12 @@ const SpotlightWindow = React.createClass({
         onSave={this.onSave()}
         enterEditMode={this.switchToEditMode}
         refreshDashboard={this.retreiveWidgets}/>
+
+        <GoogleLogin
+          clientId="367265145793-0g4m0hto4ska61utd7gkape5ckr1rdq4.apps.googleusercontent.com"
+          buttonText="Google Login"
+          onSuccess={this.onSuccessfulGoogleLogin}
+        />
       </div>
     );
   }
