@@ -1,5 +1,7 @@
 const React = require('react');
-import ReactTestUtils from 'react-addons-test-utils'const expect = require('chai').expect;
+const $ = require('jquery');
+import ReactTestUtils from 'react-addons-test-utils'
+const expect = require('chai').expect;
 const SpotlightWindow = require('./spotlight-window');
 const DashboardGrid = require('../dashboard_grid/dashboard-grid');
 
@@ -9,8 +11,16 @@ describe('SpotlightWindow', function() {
     onSave: 'fakeOnSave'
   };
 
+  beforeEach(function() {
+    sinon.stub($, 'get');
+  });
+
+  afterEach(function() {
+    $.get.restore();
+  });
+
   it('renders dashboard grid', function() {
-    const renderer = ReactTestUtils .createRenderer();
+    const renderer = ReactTestUtils.createRenderer();
     renderer.render( <SpotlightWindow {...testProps}/>);
     const result = renderer.getRenderOutput();
 
@@ -39,40 +49,27 @@ describe('SpotlightWindow', function() {
   });
 
   describe('retreiveWidgets', function() {
-    let fakeFetch;
     let component;
-    const res = new window.Response(
-      JSON.stringify({widgets: ['hello', 'world']}),
-      {
-        status: 200,
-        headers: {
-          'Content-type': 'application/json'
-        }
-      }
-    );
 
     beforeEach(function() {
       component = ReactTestUtils .renderIntoDocument(<SpotlightWindow {...testProps}/>);
-      fakeFetch = sinon.stub(window, 'fetch');
-      window.fetch.returns(Promise.resolve(res));
-    });
-
-    afterEach(function() {
-      window.fetch.restore();
     });
 
     it('retreives all widgets', function() {
       component.retreiveWidgets();
 
-      const callArgs = fakeFetch.args[0];
+      const callArgs = $.get.args[0];
       const url = callArgs[0];
       expect(url).to.contain('/api/dashboards/default');
     });
 
-    it('updates the component state', function(done) {
+    it('updates the component state', function() {
+      expect(component.state.widgets).to.deep.equal([]);
+      $.get.yields({widgets: ['hello', 'world']});
+
       component.retreiveWidgets();
-      done();
-      expect(component.state.widgets).to.equal(['hello', 'world']);
+
+      expect(component.state.widgets).to.deep.equal(['hello', 'world']);
     });
 
     it('passes retrieveWidgets to the dashboard', function() {
