@@ -31,13 +31,13 @@ const SpotlightWindow = React.createClass({
   },
 
   onSuccessfulGoogleLogin: function(googleUser) {
-    let that = this;
+    let me = this;
 
     $.post(apiHost + '/login',
       {access_token: googleUser.accessToken},
       function (response) {
         window.localStorage.setItem("authToken", response.auth_token);
-        that.setState({"loggedIn": true});
+        me.setState({"loggedIn": true});
       }
     );
   },
@@ -48,10 +48,16 @@ const SpotlightWindow = React.createClass({
 
   retreiveWidgets: function() {
     const parent = this;
-    $.get(apiHost + '/api/dashboards/default', function (data) {
+    $.ajax({
+      headers: {
+        'X-AUTH-TOKEN': localStorage.getItem('authToken'),
+      },
+      type: 'GET',
+      url: apiHost + '/api/dashboards/default',
+      success: (data) => {
         parent.setState({widgets: data.widgets});
       }
-    );
+    });
   },
 
   defaultOnSave: function() {

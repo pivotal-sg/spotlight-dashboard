@@ -12,11 +12,11 @@ describe('SpotlightWindow', function() {
   };
 
   beforeEach(function() {
-    sinon.stub($, 'get');
+    sinon.stub($, 'ajax');
   });
 
   afterEach(function() {
-    $.get.restore();
+    $.ajax.restore();
   });
 
   describe('renders correct component based on login status', function() {
@@ -110,14 +110,16 @@ describe('SpotlightWindow', function() {
     it('retreives all widgets', function() {
       component.retreiveWidgets();
 
-      const callArgs = $.get.args[0];
-      const url = callArgs[0];
+      const callArgs = $.ajax.args[0];
+      const url = callArgs[0].url;
       expect(url).to.contain('/api/dashboards/default');
     });
 
     it('updates the component state', function() {
       expect(component.state.widgets).to.deep.equal([]);
-      $.get.yields({widgets: ['hello', 'world']});
+
+      let successCallback = $.ajax.getCall(0).args[0].success;
+      successCallback({widgets: ['hello', 'world']});
 
       component.retreiveWidgets();
 
