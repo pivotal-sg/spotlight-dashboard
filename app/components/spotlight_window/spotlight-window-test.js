@@ -4,10 +4,10 @@ import ReactTestUtils from 'react-addons-test-utils'
 const expect = require('chai').expect;
 const SpotlightWindow = require('./spotlight-window');
 const DashboardGrid = require('../dashboard_grid/dashboard-grid');
+import GoogleLogin from 'react-google-login';
 
 describe('SpotlightWindow', function() {
   const testProps = {
-    foo: 'bar',
     onSave: 'fakeOnSave'
   };
 
@@ -19,16 +19,33 @@ describe('SpotlightWindow', function() {
     $.get.restore();
   });
 
-  //TODO: Add a test for the login button?
-  it('renders dashboard grid', function() {
-    const renderer = ReactTestUtils.createRenderer();
-    renderer.render( <SpotlightWindow {...testProps}/>);
-    const result = renderer.getRenderOutput();
+  describe('renders correct component based on login status', function() {
+    context('authToken exists in localStorage', function () {
+      it('renders dashboard grid', function() {
+        localStorage.setItem('authToken', 'FAKE_AUTH_TOKEN');
 
-    const dashboard = result.props.children[0];
-    expect(ReactTestUtils.isElementOfType(dashboard, DashboardGrid)).to.equal(true);
-    expect(dashboard.props.foo).to.equal('bar');
-    expect(dashboard.props.onSave).to.equal('fakeOnSave');
+        const renderer = ReactTestUtils.createRenderer();
+        renderer.render( <SpotlightWindow {...testProps}/>);
+        const result = renderer.getRenderOutput();
+
+        const dashboard = result.props.children;
+        expect(ReactTestUtils.isElementOfType(dashboard, DashboardGrid)).to.equal(true);
+        expect(dashboard.props.onSave).to.equal('fakeOnSave');
+      });
+    });
+
+    context('authToken does not exist in localStorage', function () {
+      it('renders google login button', function() {
+        localStorage.clear();
+
+        const renderer = ReactTestUtils.createRenderer();
+        renderer.render( <SpotlightWindow {...testProps}/>);
+        const result = renderer.getRenderOutput();
+
+        const dashboard = result.props.children;
+        expect(ReactTestUtils.isElementOfType(dashboard, GoogleLogin)).to.equal(true);
+      });
+    });
   });
 
   describe('switchToEditMode', function() {

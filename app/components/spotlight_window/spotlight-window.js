@@ -21,17 +21,23 @@ const SpotlightWindow = React.createClass({
   },
 
   getInitialState: function() {
+    const authToken = localStorage.getItem('authToken');
+
     return {
       widgets: [],
-      editMode: false
+      editMode: false,
+      loggedIn: !!authToken
     };
   },
 
   onSuccessfulGoogleLogin: function(googleUser) {
+    let that = this;
+
     $.post(apiHost + '/login',
       {access_token: googleUser.accessToken},
       function (response) {
         window.localStorage.setItem("authToken", response.auth_token);
+        that.setState({"loggedIn": true});
       }
     );
   },
@@ -60,21 +66,33 @@ const SpotlightWindow = React.createClass({
     this.setState({editMode: true});
   },
 
+  renderSplitWindow: function() {
+    const {loggedIn} = this.state;
+
+    if(loggedIn) {
+      return (<DashboardGrid
+                {...this.props}
+                widgets={this.state.widgets}
+                editMode={this.state.editMode}
+                onSave={this.onSave()}
+                enterEditMode={this.switchToEditMode}
+                refreshDashboard={this.retreiveWidgets}
+              />
+      );
+    } else {
+      return (<GoogleLogin
+                clientId="367265145793-0g4m0hto4ska61utd7gkape5ckr1rdq4.apps.googleusercontent.com"
+                buttonText="Google Login"
+                onSuccess={this.onSuccessfulGoogleLogin.bind(this)}
+              />
+      );
+    }
+  },
+
   render: function() {
     return (
       <div>
-        <DashboardGrid  {...this.props}
-        widgets={this.state.widgets}
-        editMode={this.state.editMode}
-        onSave={this.onSave()}
-        enterEditMode={this.switchToEditMode}
-        refreshDashboard={this.retreiveWidgets}/>
-
-        <GoogleLogin
-          clientId="367265145793-0g4m0hto4ska61utd7gkape5ckr1rdq4.apps.googleusercontent.com"
-          buttonText="Google Login"
-          onSuccess={this.onSuccessfulGoogleLogin}
-        />
+        {this.renderSplitWindow()}
       </div>
     );
   }
