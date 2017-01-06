@@ -28,7 +28,7 @@ const SpotlightWindow = React.createClass({
   },
 
   onSuccessfulGoogleLogin: function(googleUser) {
-    $.post(apiHost + '/api/login',
+    $.post(apiHost + '/login',
       {access_token: googleUser.accessToken},
       function (response) {
         window.localStorage.setItem("authToken", response.auth_token);

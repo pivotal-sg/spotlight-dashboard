@@ -70,7 +70,7 @@ describe('SpotlightWindow', function() {
       const url = callArgs[0];
       const postData = callArgs[1];
 
-      expect(url).to.contain('/api/login');
+      expect(url).to.contain('/login');
       expect(postData).to.deep.equal({access_token: 'FAKE_ACCESS_TOKEN'});
     });
 
