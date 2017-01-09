@@ -138,7 +138,7 @@ describe('CiWidgetContainer', function() {
   });
 
   it('passes the build status from its state to the CI widget component', function() {
-    const expectedProps = {status: 'status', committer: 'committer name', lastBuildTime: 'last build', buildHistory: [{foo: 'bar'}]};
+    const expectedProps = {status: 'passed', committer: 'committer name', lastBuildTime: 'last build', buildHistory: [{foo: 'bar'}]};
     component.setState(expectedProps);
 
     const ciWidget = ReactTestUtils .findRenderedComponentWithType(component, CiWidget);

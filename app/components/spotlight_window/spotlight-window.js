@@ -43,10 +43,10 @@ const SpotlightWindow = React.createClass({
   },
 
   componentDidMount: function () {
-    this.retreiveWidgets();
+    this.retrieveWidgets();
   },
 
-  retreiveWidgets: function() {
+  retrieveWidgets: function() {
     const parent = this;
     $.ajax({
       headers: {
@@ -82,14 +82,14 @@ const SpotlightWindow = React.createClass({
                 editMode={this.state.editMode}
                 onSave={this.onSave()}
                 enterEditMode={this.switchToEditMode}
-                refreshDashboard={this.retreiveWidgets}
+                refreshDashboard={this.retrieveWidgets}
               />
       );
     } else {
       return (<GoogleLogin
                 clientId="367265145793-0g4m0hto4ska61utd7gkape5ckr1rdq4.apps.googleusercontent.com"
                 buttonText="Google Login"
-                onSuccess={this.onSuccessfulGoogleLogin.bind(this)}
+                onSuccess={this.onSuccessfulGoogleLogin}
               />
       );
     }

@@ -8,7 +8,7 @@ import GoogleLogin from 'react-google-login';
 
 describe('SpotlightWindow', function() {
   const testProps = {
-    onSave: 'fakeOnSave'
+    onSave: () => 'fakeOnSave'
   };
 
   beforeEach(function() {
@@ -30,7 +30,7 @@ describe('SpotlightWindow', function() {
 
         const dashboard = result.props.children;
         expect(ReactTestUtils.isElementOfType(dashboard, DashboardGrid)).to.equal(true);
-        expect(dashboard.props.onSave).to.equal('fakeOnSave');
+        expect(dashboard.props.onSave()).to.equal('fakeOnSave');
       });
     });
 
@@ -100,7 +100,7 @@ describe('SpotlightWindow', function() {
 
   });
 
-  describe('retreiveWidgets', function() {
+  describe('retrieveWidgets', function() {
     let component;
 
     beforeEach(function() {
@@ -108,7 +108,7 @@ describe('SpotlightWindow', function() {
     });
 
     it('retreives all widgets', function() {
-      component.retreiveWidgets();
+      component.retrieveWidgets();
 
       const callArgs = $.ajax.args[0];
       const url = callArgs[0].url;
@@ -117,18 +117,23 @@ describe('SpotlightWindow', function() {
 
     it('updates the component state', function() {
       expect(component.state.widgets).to.deep.equal([]);
+      const helloWidget = {
+        title: 'hello',
+        widgetPath: '/widget_path',
+        uuid: 'some uuid',
+        category: 'clock_widget'
+      };
 
       let successCallback = $.ajax.getCall(0).args[0].success;
-      successCallback({widgets: ['hello', 'world']});
+      successCallback({widgets: [ helloWidget ]});
+      component.retrieveWidgets();
 
-      component.retreiveWidgets();
-
-      expect(component.state.widgets).to.deep.equal(['hello', 'world']);
+      expect(component.state.widgets).to.deep.equal([helloWidget]);
     });
 
     it('passes retrieveWidgets to the dashboard', function() {
       const dashboard = ReactTestUtils .findRenderedComponentWithType(component, DashboardGrid);
-      expect(dashboard.props.refreshDashboard).to.equal(component.retreiveWidgets);
+      expect(dashboard.props.refreshDashboard).to.equal(component.retrieveWidgets);
     });
   });
 });
