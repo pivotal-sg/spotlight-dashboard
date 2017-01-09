@@ -37,3 +37,6 @@ npm-debug.log
 refresh_all_screens.sh
 
 ci/credentials.yml
+
+# IntelliJ project files
+.idea/
