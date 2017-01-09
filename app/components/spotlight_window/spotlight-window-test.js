@@ -69,7 +69,7 @@ describe('SpotlightWindow', function() {
   // TODO: assert api calls have token in the header
   describe('onSuccessfulGoogleLogin', function() {
     let component;
-    const googleUser = { accessToken: 'FAKE_ACCESS_TOKEN'};
+    const googleUser = { getAuthResponse() { return {id_token: "ID_TOKEN"} } };
 
     beforeEach(function() {
       component = ReactTestUtils .renderIntoDocument(<SpotlightWindow {...testProps}/>);
@@ -80,7 +80,7 @@ describe('SpotlightWindow', function() {
       $.post.restore();
     });
 
-    it('sends over the access token to the api', function(){
+    it('sends over the ID token to the api', function() {
       component.onSuccessfulGoogleLogin(googleUser);
 
       const callArgs = $.post.args[0];
@@ -88,7 +88,7 @@ describe('SpotlightWindow', function() {
       const postData = callArgs[1];
 
       expect(url).to.contain('/login');
-      expect(postData).to.deep.equal({access_token: 'FAKE_ACCESS_TOKEN'});
+      expect(postData).to.deep.equal({id_token: 'ID_TOKEN'});
     });
 
     it('saves the response authToken in localStorage', function () {
