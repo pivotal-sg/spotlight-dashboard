@@ -87,7 +87,7 @@ describe('SpotlightWindow', function() {
       const url = callArgs[0];
       const postData = callArgs[1];
 
-      expect(url).to.contain('/login');
+      expect(url).to.contain('/get_auth_token');
       expect(postData).to.deep.equal({id_token: 'ID_TOKEN'});
     });
 
