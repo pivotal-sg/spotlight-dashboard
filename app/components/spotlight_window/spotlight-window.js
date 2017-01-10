@@ -50,7 +50,7 @@ const SpotlightWindow = React.createClass({
     const parent = this;
     $.ajax({
       headers: {
-        'X-AUTH-TOKEN': localStorage.getItem('authToken'),
+        'X-Spotlight-Token': localStorage.getItem('authToken')
       },
       type: 'GET',
       url: apiHost + '/api/dashboards/default',

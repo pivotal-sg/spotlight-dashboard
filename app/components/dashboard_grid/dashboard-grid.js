@@ -61,7 +61,8 @@ const DashboardGrid = React.createClass({
       body: JSON.stringify({layout: this.state.currentLayout}),
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Spotlight-Token': localStorage.getItem('authToken')
       }
     };
 

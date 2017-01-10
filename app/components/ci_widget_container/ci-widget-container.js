@@ -68,6 +68,7 @@ const CiWidgetContainer = React.createClass({
       method: 'GET',
       headers: {
         accept: 'application/json',
+        'X-Spotlight-Token': localStorage.getItem('authToken')
       }
     };
 

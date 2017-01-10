@@ -28,6 +28,7 @@ const UrlWidget = React.createClass({
       method: 'GET',
       headers: {
         accept: 'application/json',
+        'X-Spotlight-Token': localStorage.getItem('authToken')
       }
     };
     fetch(apiUrl, options)
