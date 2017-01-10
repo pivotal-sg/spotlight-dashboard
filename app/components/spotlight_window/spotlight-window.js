@@ -38,6 +38,7 @@ const SpotlightWindow = React.createClass({
       function (response) {
         window.localStorage.setItem("authToken", response.auth_token);
         me.setState({"loggedIn": true});
+        me.retrieveWidgets();
       }
     );
   },
