@@ -57,7 +57,6 @@ const DashboardGrid = React.createClass({
     const url = apiHost + '/api/dashboards/' + this.props.dashboardId + '/layout';
     const options = {
       method: 'post',
-      mode: 'no-cors',
       body: JSON.stringify({layout: this.state.currentLayout}),
       headers: {
         'Accept': 'application/json',
