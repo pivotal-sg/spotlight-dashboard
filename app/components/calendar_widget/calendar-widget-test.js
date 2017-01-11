@@ -62,7 +62,7 @@ describe('CalendarWidget', function() {
         expect(body).to.include(testEvents[1]['title']);
 
         done();
-      });
+      }, 300);
     });
   });
 

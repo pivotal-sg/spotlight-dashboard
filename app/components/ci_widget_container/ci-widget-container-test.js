@@ -62,7 +62,7 @@ describe('CiWidgetContainer', function() {
       setTimeout(function(){
         expect(onBuildUpdateSpy.calledWith(fakeCIStatusResponse)).to.equal(true)
         done();
-      });
+      }, 300);
     });
   });
 
