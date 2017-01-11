@@ -47,7 +47,7 @@ describe('CalendarResourceWidget', function() {
         const body = ReactDOM.findDOMNode(component).innerHTML;
         expect(body).to.include('Available');
         done();
-      });
+      }, 300);
     });
   });
 
@@ -79,7 +79,7 @@ describe('CalendarResourceWidget', function() {
         const body = ReactDOM.findDOMNode(component).innerHTML;
         expect(body).to.include('Booked');
         done();
-      });
+      }, 300);
     });
   });
 });
