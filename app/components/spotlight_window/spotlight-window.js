@@ -3,7 +3,7 @@
 const React = require('react');
 const $ = require('jquery');
 const DashboardGrid = require('../dashboard_grid/dashboard-grid');
-import {apiHost} from '../../config/globals';
+import {apiHost, googleClientId} from '../../config/globals';
 import GoogleLogin from 'react-google-login';
 
 const SpotlightWindow = React.createClass({
@@ -88,7 +88,7 @@ const SpotlightWindow = React.createClass({
       );
     } else {
       return (<GoogleLogin
-                clientId="367265145793-0g4m0hto4ska61utd7gkape5ckr1rdq4.apps.googleusercontent.com"
+                clientId={googleClientId}
                 buttonText="Google Login"
                 onSuccess={this.onSuccessfulGoogleLogin}
               />
