@@ -5,10 +5,10 @@
 
 ## Setup instruction
 
- - Make sure you are using Node v5.4.0
+ - Make sure you are using Node v5.12.0
  ```
-nvm install v5.4.0
-nvm use v5.4.0
+nvm install v5.12.0
+nvm use v5.12.0
  ```
 
  - Install all the requirements
