@@ -51,7 +51,6 @@ const CalendarResourceWidget = React.createClass({
     .then(function(response) {
       return response.json();
     }).then( function(json) {
-      console.log('JSON ', json);
       component.setState({
         available: json.available,
         next_booking_at: json.next_booking_at,
