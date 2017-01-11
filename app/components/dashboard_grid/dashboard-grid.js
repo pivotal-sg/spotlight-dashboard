@@ -92,12 +92,29 @@ const DashboardGrid = React.createClass({
     return 'dashboard ' + mode;
   },
 
+  handleAddClicked: function(e) {
+    e.preventDefault();
+    document.getElementById('add-widget').submit();
+  },
+
+  renderAddButton: function() {
+    return (
+      <div>
+        <form id="add-widget" method="post" action={apiHost + '/login'}>
+          <input type="hidden" name="auth_token" value={localStorage.getItem('authToken')} />
+          <input type="hidden" name="redirect_url" value={apiHost + addPath} />
+        </form>
+        <DashboardButton action="add" href={apiHost + addPath} onClick={this.handleAddClicked} tooltip="New Widget" editOnly={true}/>
+      </div>
+    )
+  },
+
   render: function() {
     return (
       <div className={ this.dashboardClass() }>
-        <DashboardButton action="save" href="javascript:void(0);" onClick={this.persistLayout} tooltip="Save Layout" editOnly={true}/>
-        <DashboardButton action="add" href={apiHost + addPath} tooltip="New Widget" editOnly={true}/>
         <DashboardButton action="edit" href="javascript:void(0);" onClick={this.props.enterEditMode} tooltip="Edit Dashboard" editOnly={false}/>
+        <DashboardButton action="save" href="javascript:void(0);" onClick={this.persistLayout} tooltip="Save Layout" editOnly={true}/>
+        {this.renderAddButton()}
 
         <ReactGridLayout
           {...this.props}
