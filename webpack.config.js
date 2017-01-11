@@ -37,7 +37,8 @@ module.exports = {
     }),
     new Webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-      "process.env.API_HOST": JSON.stringify(process.env.API_HOST)
+      "process.env.API_HOST": JSON.stringify(process.env.API_HOST),
+      "process.env.GOOGLE_API_CLIENT_ID": JSON.stringify(process.env.GOOGLE_API_CLIENT_ID)
     })
   ],
   node: {
