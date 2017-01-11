@@ -26,17 +26,14 @@ const Widget = React.createClass({
 
   deleteWidget: function() {
     const component = this;
-    let data = new FormData();
-    data.append('_method', 'delete');
 
     const url = apiHost + this.props.widgetPath;
     const options = {
-      method: 'post',
-      mode: 'no-cors',
-      body: data,
+      method: 'delete',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Spotlight-Token': localStorage.getItem('authToken')
       }
     };
     window.fetch(url, options)

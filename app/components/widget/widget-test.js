@@ -67,7 +67,7 @@ describe('Widget', function() {
       const url = callArgs[0];
       const options = callArgs[1];
       expect(url).to.contain(widgetProps.widgetPath);
-      expect(options.method).to.equal('post');
+      expect(options.method).to.equal('delete');
     });
 
     it('calls refresh widgets function on success', function(done) {
