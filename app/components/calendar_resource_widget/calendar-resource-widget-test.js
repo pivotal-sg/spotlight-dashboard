@@ -1,5 +1,6 @@
 const React = require('react');
-const TestUtils = require('react/lib/ReactTestUtils');
+import ReactTestUtils from 'react-addons-test-utils'
+import ReactDOM from "react-dom";
 
 const chai = require('chai');
 const expect = require('chai').expect;
@@ -34,7 +35,7 @@ describe('CalendarResourceWidget', function() {
       fakeFetch = sinon.stub(window, 'fetch');
       window.fetch.returns(Promise.resolve(res));
 
-      component = TestUtils.renderIntoDocument( <CalendarResourceWidget { ...widgetProps }/>);
+      component = ReactTestUtils.renderIntoDocument( <CalendarResourceWidget { ...widgetProps }/>);
     });
 
     afterEach(function() {
@@ -43,7 +44,7 @@ describe('CalendarResourceWidget', function() {
 
     it("shows 'Available'", function(done) {
       setTimeout(function(){
-        const body = component.getDOMNode().innerHTML;
+        const body = ReactDOM.findDOMNode(component).innerHTML;
         expect(body).to.include('Available');
         done();
       });
@@ -66,7 +67,7 @@ describe('CalendarResourceWidget', function() {
       fakeFetch = sinon.stub(window, 'fetch');
       window.fetch.returns(Promise.resolve(res));
 
-      component = TestUtils.renderIntoDocument( <CalendarResourceWidget { ...widgetProps }/>);
+      component = ReactTestUtils.renderIntoDocument( <CalendarResourceWidget { ...widgetProps }/>);
     });
 
     afterEach(function() {
@@ -75,7 +76,7 @@ describe('CalendarResourceWidget', function() {
 
     it("shows 'Booked'", function(done) {
       setTimeout(function(){
-        const body = component.getDOMNode().innerHTML;
+        const body = ReactDOM.findDOMNode(component).innerHTML;
         expect(body).to.include('Booked');
         done();
       });

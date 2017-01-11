@@ -1,5 +1,6 @@
 const React = require('react');
 import ReactTestUtils from 'react-addons-test-utils'
+import ReactDOM from "react-dom";
 
 const chai = require('chai');
 const expect = require('chai').expect;
@@ -50,12 +51,12 @@ describe('CalendarWidget', function() {
 
   describe('renders the calendar widget', function() {
     beforeEach(function() {
-      component = TestUtils.renderIntoDocument( <CalendarWidget {...widgetProps}/>);
+      component = ReactTestUtils.renderIntoDocument( <CalendarWidget {...widgetProps}/>);
     });
 
     it('renders the events', function(done) {
       setTimeout(function(){
-        const body = component.getDOMNode().innerHTML;
+        const body = ReactDOM.findDOMNode(component).innerHTML;
 
         expect(body).to.include(testEvents[0]['title']);
         expect(body).to.include(testEvents[1]['title']);

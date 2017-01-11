@@ -51,7 +51,7 @@ describe('CiWidgetContainer', function() {
       fakeFetch = sinon.stub(window, 'fetch');
       window.fetch.returns(Promise.resolve(res));
 
-      component = TestUtils.renderIntoDocument( <CiWidgetContainer { ...widgetProps } onBuildUpdate={onBuildUpdateSpy} />);
+      component = ReactTestUtils.renderIntoDocument( <CiWidgetContainer { ...widgetProps } onBuildUpdate={onBuildUpdateSpy} />);
     });
 
     afterEach(function() {
