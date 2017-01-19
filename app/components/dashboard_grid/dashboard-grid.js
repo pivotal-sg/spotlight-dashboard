@@ -104,7 +104,7 @@ const DashboardGrid = React.createClass({
           <input type="hidden" name="auth_token" value={localStorage.getItem('authToken')} />
           <input type="hidden" name="redirect_url" value={apiHost + addPath} />
         </form>
-        <DashboardButton action="add" href={apiHost + addPath} onClick={this.handleAddClicked} tooltip="New Widget" editOnly={true}/>
+        <DashboardButton action="add" href="#" onClick={this.handleAddClicked} tooltip="New Widget" editOnly={true}/>
       </div>
     )
   },
