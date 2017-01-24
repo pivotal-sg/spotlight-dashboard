@@ -1,0 +1,52 @@
+.openair-timesheet-status {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 3vmax;
+  padding: 10px 20px 20px 20px;
+  background-color: #F1D4A9;
+  color: #58534C;
+
+  .sign {
+    color: white;
+    margin: 0 auto;
+    width: 90%;
+    font-size: 80%;
+  }
+
+  &.pending {
+    .sign {
+      background-color: #F16C4E;
+      background: repeating-linear-gradient(
+                      45deg,
+                      #F16C4E,
+                      #F16C4E 10px,
+                      darken(#F16C4E, 20%) 10px,
+                      darken(#F16C4E, 20%) 20px
+      );
+      font-weight: bold;
+    }
+  }
+
+  &.submitted {
+    .sign {
+      background: green;
+    }
+  }
+
+  &.loading {
+    .sign {
+      background: grey;
+    }
+  }
+
+  .title {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    display: -webkit-box;
+    padding-bottom: 20;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+}

@@ -10,6 +10,7 @@ const Widget = require('./widget');
 const ClockWidget = require('../clock_widget/clock-widget');
 const CiWidgetContainer = require('../ci_widget_container/ci-widget-container');
 const CalendarWidget = require('../calendar_widget/calendar-widget');
+import OpenairWidget from '../openair_widget/openair-widget';
 
 describe('Widget', function() {
   let component;
@@ -25,7 +26,7 @@ describe('Widget', function() {
   };
 
   beforeEach(function() {
-    component = ReactTestUtils .renderIntoDocument(<Widget {...widgetProps} {...requiredProps}/>);
+    component = ReactTestUtils.renderIntoDocument(<Widget {...widgetProps} {...requiredProps}/>);
   });
 
   it('passes its props to the child component', function() {
@@ -101,6 +102,12 @@ describe('Widget', function() {
       it('renders a calendar widget', function() {
         const widget = ReactTestUtils.renderIntoDocument(<Widget {...propsWithoutCategory} category="gcal_widget" {...requiredProps}/>);
         expect(ReactTestUtils.findRenderedComponentWithType(widget, CalendarWidget)).to.exist;
+      });
+    });
+    describe('is openair', function() {
+      it('renders an OpenAir widget', function() {
+        const widget = ReactTestUtils.renderIntoDocument(<Widget {...propsWithoutCategory} category="openair_widget" {...requiredProps}/>);
+        expect(ReactTestUtils.findRenderedComponentWithType(widget, OpenairWidget)).to.exist;
       });
     });
   });

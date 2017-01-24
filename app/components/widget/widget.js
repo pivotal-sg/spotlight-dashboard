@@ -5,6 +5,7 @@ const CalendarWidget = require('../calendar_widget/calendar-widget');
 const CalendarResourceWidget = require('../calendar_resource_widget/calendar-resource-widget');
 const ComicWidget = require('../comic_widget/comic-widget');
 const UrlWidget = require('../url_widget/url-widget');
+import OpenairWidget from '../openair_widget/openair-widget';
 
 require('./widget.scss');
 
@@ -54,7 +55,8 @@ const Widget = React.createClass({
       'gcal_widget': CalendarWidget,
       'gcal_resource_widget': CalendarResourceWidget,
       'comic_widget': ComicWidget,
-      'url_widget': UrlWidget
+      'url_widget': UrlWidget,
+      'openair_widget': OpenairWidget
     };
     const WidgetType = widgetCategory[this.props.category];
     return <WidgetType {...this.props}/>;
