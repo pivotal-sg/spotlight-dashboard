@@ -1,5 +1,5 @@
 var path = require('path');
-
+var forceSSL = require('express-force-ssl');
 var isDevelopment = (process.env.NODE_ENV !== 'production');
 var static_path = path.join(__dirname, 'public');
 
@@ -25,6 +25,7 @@ if (isDevelopment) {
   var express = require('express');
   var app = express();
 
+  app.use(forceSSL);
   app.use(express.static(static_path))
   .get('/', function (req, res) {
     res.sendFile('index.html', {
