@@ -25,7 +25,8 @@ if (isDevelopment) {
   var express = require('express');
   var app = express();
 
-  app.use(forceSSL);
+  if(process.env.FORCE_SSL != 'false'){ app.use(forceSSL); }
+
   app.use(express.static(static_path))
   .get('/', function (req, res) {
     res.sendFile('index.html', {
