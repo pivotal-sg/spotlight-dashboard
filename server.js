@@ -25,7 +25,12 @@ if (isDevelopment) {
   var express = require('express');
   var app = express();
 
-  if(process.env.FORCE_SSL != 'false'){ app.use(forceSSL); }
+  if(process.env.FORCE_SSL != 'false'){
+    app.set('forceSSLOptions', {
+      trustXFPHeader: true,
+    });
+    app.use(forceSSL);
+  }
 
   app.use(express.static(static_path))
   .get('/', function (req, res) {
