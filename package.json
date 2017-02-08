@@ -8,7 +8,7 @@
     "test": "karma start"
   },
   "engines": {
-    "node": "5.12.0"
+    "node": "6.9.5"
   },
   "author": "Neo <dev@neo.com>",
   "license": "ISC",
